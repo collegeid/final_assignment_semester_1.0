@@ -1,22 +1,21 @@
-#include <pqxx/pqxx>
-#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <libpq-fe.h>
 
-// Fungsi untuk menghubungkan ke database
-pqxx::connection connectToDatabase() {
-    try {
-        pqxx::connection conn("dbname=peltjzzc user=peltjzzc password=UHfJBbXXZMh9tgiCi7ssDP3kqIccGDrm hostaddr=balarama.db.elephantsql.com port=5432");
+PGconn *connectToDatabase() {
+    PGconn *conn = PQconnectdb("dbname=mydatabase user=myuser password=mypassword host=localhost port=5432");
 
-        if (conn.is_open()) {
-            std::cout << "Connected to database successfully." << std::endl;
-        } else {
-            throw std::runtime_error("Failed to connect to database.");
-        }
-
-        return conn;
-    } catch (const std::exception &e) {
-        std::cerr << e.what() << std::endl;
-        throw;  // Re-throw exception to be caught by the caller
+    // Memeriksa apakah koneksi berhasil
+    if (PQstatus(conn) != CONNECTION_OK) {
+        fprintf(stderr, "Connection to database failed: %s", PQerrorMessage(conn));
+        PQfinish(conn);
+        exit(1);
     }
+
+    // Menampilkan pesan koneksi berhasil
+    printf("Connected to database.\n");
+
+    return conn;
 }
 
 // Fungsi untuk melakukan operasi database
@@ -206,7 +205,8 @@ void selectBarangById(pqxx::connection &conn, int id) {
 int main_init() {
     try {
         // Menghubungkan ke database
-        pqxx::connection conn = connectToDatabase();
+       PGconn *conn = connectToDatabase();
+
 
         // Lakukan operasi database
         //performDatabaseOperations(conn);
@@ -335,7 +335,7 @@ std::vector<BarangInfo> kendaraanList = {
 int main() {
     try {
         // Connect to the database
-        pqxx::connection conn = connectToDatabase();
+        PGconn *conn = connectToDatabase();
 
         // Display welcome message and prompt for dealer name
         std::cout << "Silahkan ketik nama Otomotif anda, atau gunakan default (kelompok 2): ";
