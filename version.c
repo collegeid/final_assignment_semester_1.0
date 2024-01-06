@@ -33,6 +33,12 @@ typedef struct {
     float total_harga_laporan;
 } Laporan;
 
+
+// Nama merchant (global variable)
+char nama_merchant[100] = "Kelompok 2 auto";
+
+// Nama merchant (global variable)
+char nama_kasir[100] = "Auto Kasir (default)";
 // Inisialisasi array untuk menyimpan data
 Barang daftar_barang[100];
 Keranjang keranjang_belanja[100];
@@ -47,9 +53,6 @@ int jumlah_laporan = 0;
 
 // Flag untuk memeriksa apakah program sudah diinisialisasi
 int program_diinisialisasi = 0;
-
-
-
 // Fungsi untuk menambahkan barang ke array
 void tambah_barang(int id, char nama_barang[], float harga, int stok, char deskripsi[]) {
     Barang barang;
@@ -193,12 +196,9 @@ void tampilkan_laporan() {
 }
 
 
-
-
-// Fungsi inisialisasi program jika belum diinisialisasi
-void inisialisasi_program() {
-    if (!program_diinisialisasi) {
-       tambah_barang(1, "Barang A", 10.0, 50, "Deskripsi Barang A");
+void contoh_penggunaan_model() {
+    
+          tambah_barang(1, "Barang A", 10.0, 50, "Deskripsi Barang A");
    tambah_barang(2, "Barang B", 20.0, 30, "Deskripsi Barang B");
  tambah_barang(1, "Barang A", 10.0, 50, "Deskripsi Barang A");
     // Menampilkan daftar barang
@@ -259,6 +259,52 @@ void inisialisasi_program() {
    tampilkan_laporan();
 
  
+    
+}
+
+// Fungsi untuk memasukkan nama merchant
+void masukkan_nama_merchant() {
+    printf("Masukkan nama merchant (default: kelompok 2 auto): ");
+    fgets(nama_merchant, sizeof(nama_merchant), stdin);
+
+    // Hapus karakter newline yang masuk bersamaan dengan nama
+    size_t len = strlen(nama_merchant);
+    if (len > 0 && nama_merchant[len - 1] == '\n') {
+        nama_merchant[len - 1] = '\0';
+    }
+
+    // Set nama merchant ke default jika kosong
+    if (nama_merchant[0] == '\0') {
+        strcpy(nama_merchant, "Kelompok 2 auto");
+    }
+}
+
+
+// Fungsi untuk memasukkan nama merchant
+void masukkan_nama_kasir() {
+    printf("Masukkan nama Kasir (default (kasir auto): ");
+    fgets(nama_kasir, sizeof(nama_kasir), stdin);
+
+    // Hapus karakter newline yang masuk bersamaan dengan nama
+    size_t len = strlen(nama_kasir);
+    if (len > 0 && nama_kasir[len - 1] == '\n') {
+        nama_kasir[len - 1] = '\0';
+    }
+
+    // Set nama merchant ke default jika kosong
+    if (nama_kasir[0] == '\0') {
+        strcpy(nama_kasir, "kasir auto");
+    }
+}
+// Fungsi inisialisasi program jika belum diinisialisasi
+void inisialisasi_program() {
+    if (!program_diinisialisasi) {
+ printf("memulai inisiasi program...\n");
+ 
+  masukkan_nama_merchant();
+   printf("Nama Merchant: %s\n", nama_merchant);
+     masukkan_nama_kasir();
+   printf("Nama kasir: %s\n", nama_kasir);
         // Set flag bahwa program telah diinisialisasi
         program_diinisialisasi = 1;
     }
@@ -271,7 +317,7 @@ void inisialisasi_program() {
 int main() {
     // Menambahkan beberapa contoh barang
    inisialisasi_program();
-
+  //contoh_penggunaan_model();
     // ... (kode lainnya)
 
     return 0;
