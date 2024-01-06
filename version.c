@@ -334,7 +334,7 @@ void query_barang() {
         if (pilihan == 1) {
             query_barang();  // Rekursif untuk menambah barang lagi
         } else if (pilihan == 0) {
-            tampilkan_daftar_barang();
+            cek_data_barang();
         } else {
             printf("Pilihan tidak valid. Silakan masukkan 1 atau 0.\n");
         }
@@ -345,14 +345,54 @@ void query_barang() {
 
 
 void cek_data_barang(){
-
-
     if (jumlah_barang != 0) {
         tampilkan_daftar_barang();
+        search_barang();
     } else {
        query_barang();
     }
 }
+
+void search_barang() {
+    int pilihan;
+    printf("\n1. Cari berdasarkan Nama\n");
+    printf("2. Cari berdasarkan ID\n");
+    printf("Pilih jenis pencarian (1/2): ");
+    scanf("%d", &pilihan);
+
+    if (pilihan == 1) {
+        char nama_cari[50];
+        printf("Masukkan nama barang yang dicari: ");
+        scanf("%s", nama_cari);
+        cari_barang_dan_tampilkan(nama_cari, -1);
+    } else if (pilihan == 2) {
+        int id_cari;
+        printf("Masukkan ID barang yang dicari: ");
+        scanf("%d", &id_cari);
+        cari_barang_dan_tampilkan(NULL, id_cari);
+    } else {
+        printf("Pilihan tidak valid.\n");
+    }
+}
+
+void cari_barang_dan_tampilkan(char nama_cari[], int id_cari) {
+    int ditemukan = 0;
+    
+    for (int i = 0; i < jumlah_barang; i++) {
+        if ((nama_cari != NULL && strcasestr(daftar_barang[i].nama_barang, nama_cari) != NULL) ||
+            (id_cari != -1 && daftar_barang[i].id == id_cari)) {
+            ditemukan = 1;
+            printf("Barang ditemukan:\n");
+            printf("%d. %s - Harga: %.2f - Stok: %d\n", daftar_barang[i].id, daftar_barang[i].nama_barang, daftar_barang[i].harga, daftar_barang[i].stok);
+        } 
+    }
+
+    if (!ditemukan) {
+        printf("Barang tidak ditemukan.\n");
+        search_barang();
+    }
+}
+
 
 
 // Fungsi inisialisasi program jika belum diinisialisasi
@@ -368,7 +408,6 @@ void inisialisasi_program() {
         program_diinisialisasi = 1;
         
         printf("Inisiasi Selesai...");
-        
         
       
     }
