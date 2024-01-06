@@ -298,8 +298,6 @@ void masukkan_nama_kasir() {
 }
 
 
-
-
 void query_barang() {
     printf("\nTambahkan barang:\n");
 
@@ -308,15 +306,34 @@ void query_barang() {
     char nama_barang[50], deskripsi[100];
     float harga;
     int stok;
+    char input_harga[20], input_stok[20]; // Gunakan string sementara untuk validasi input
 
     printf("Masukkan nama barang: ");
     scanf(" %[^\n]", nama_barang);
 
-    printf("Masukkan harga barang: ");
-    scanf("%f", &harga);
+    // Validasi input harga
+    do {
+        printf("Masukkan harga barang (Angka): ");
+        scanf("%s", input_harga);
+        if (!is_angka(input_harga)) {
+            printf("Harga harus berupa angka. Silakan coba lagi.\n");
+        } else {
+            harga = atof(input_harga);
+            break;
+        }
+    } while (true);
 
-    printf("Masukkan stok barang: ");
-    scanf("%d", &stok);
+    // Validasi input stok
+    do {
+        printf("Masukkan stok barang (Angka): ");
+        scanf("%s", input_stok);
+        if (!is_angka(input_stok)) {
+            printf("Stok harus berupa angka. Silakan coba lagi.\n");
+        } else {
+            stok = atoi(input_stok);
+            break;
+        }
+    } while (true);
 
     printf("Masukkan deskripsi barang: ");
     scanf(" %[^\n]", deskripsi);
@@ -340,6 +357,16 @@ void query_barang() {
         }
 
     } while (pilihan != 0 && pilihan != 1);
+}
+
+// Fungsi untuk memeriksa apakah sebuah string adalah angka
+bool is_angka(const char *string) {
+    for (int i = 0; string[i] != '\0'; i++) {
+        if (!isdigit(string[i]) && string[i] != '.') {
+            return false;
+        }
+    }
+    return true;
 }
 
 
