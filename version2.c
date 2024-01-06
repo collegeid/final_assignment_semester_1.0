@@ -56,6 +56,131 @@ bool is_angka(const char *string);
 // Flag untuk memeriksa apakah program sudah diinisialisasi
 int program_diinisialisasi = 0;
 // Fungsi untuk menambahkan barang ke array
+void dumping_barang(int id, char nama_barang[], float harga, int stok, char deskripsi[]) {
+    if (jumlah_barang < 100) {
+        Barang barang;
+        barang.id = id;
+        strncpy(barang.nama_barang, nama_barang, sizeof(barang.nama_barang) - 1);
+        barang.harga = harga;
+        barang.stok = stok;
+        strncpy(barang.deskripsi, deskripsi, sizeof(barang.deskripsi) - 1);
+
+        daftar_barang[jumlah_barang] = barang;
+        jumlah_barang++;
+        printf("Data berhasil ditambahkan ke indeks %d.\n", jumlah_barang - 1);
+    } else {
+        printf("Error: Array daftar_barang is full.\n");
+    }
+}
+
+
+void insert_initial_data() {
+    Barang initial_data[] = {
+    {1, "Ban Mobil", 200.0, 50, "Ban mobil berukuran 15 inch."},
+    {2, "Oli Mesin", 50.0, 100, "Oli mesin berkualitas tinggi untuk semua jenis kendaraan."},
+    {3, "Busi Mobil", 8.0, 150, "Busi mobil tahan lama dengan kinerja optimal."},
+    {4, "Filter Udara", 15.0, 80, "Filter udara untuk menjaga kualitas udara masuk ke mesin."},
+    {5, "Kampas Rem", 25.0, 120, "Kampas rem berkualitas untuk sistem pengereman yang aman."},
+    {6, "Wiper Mobil", 12.0, 70, "Wiper mobil dengan desain yang efisien untuk membersihkan kaca."},
+    {7, "Aki Mobil", 100.0, 90, "Aki mobil dengan daya tahan tinggi."},
+    {8, "Lampu Kepala", 18.0, 60, "Lampu kepala berkualitas untuk penerangan maksimal."},
+    {9, "Sparepart Rem", 30.0, 40, "Sparepart rem untuk pemeliharaan rutin."},
+    {10, "Pelumas Rantai", 8.0, 75, "Pelumas rantai motor untuk perawatan optimal."},
+    {11, "Radiator Coolant", 12.0, 85, "Cairan pendingin radiator untuk menjaga suhu mesin."},
+    {12, "Kaca Mobil", 40.0, 25, "Kaca mobil dengan kekuatan dan ketahanan tinggi."},
+    {13, "Kunci Inggris", 5.0, 120, "Kunci inggris dengan berbagai ukuran untuk kebutuhan bengkel."},
+    {14, "Kopling Motor", 35.0, 50, "Kopling motor tahan lama untuk performa yang optimal."},
+    {15, "Starter Motor", 25.0, 40, "Starter motor untuk memastikan start mesin yang lancar."},
+    {16, "Ban Motor", 100.0, 60, "Ban motor dengan kualitas terbaik."},
+    {17, "Oli Transmisi", 40.0, 80, "Oli transmisi untuk kendaraan bertransmisi manual."},
+    {18, "Kunci Roda", 7.0, 110, "Kunci roda untuk membuka dan mengunci roda kendaraan."},
+    {19, "Aki Motor", 80.0, 70, "Aki motor dengan daya tahan tinggi."},
+    {20, "Lampu Belakang", 15.0, 45, "Lampu belakang untuk sinyal dan penerangan belakang."},
+    {21, "Saringan Bensin", 10.0, 55, "Saringan bensin untuk menyaring kotoran pada bahan bakar."},
+    {22, "Kabel Busi", 5.0, 65, "Kabel busi berkualitas tinggi untuk penghantaran listrik yang optimal."},
+    {23, "Oli Rem", 20.0, 30, "Oli rem untuk menjaga kinerja rem pada kendaraan."},
+    {24, "Gantungan Kunci Mobil", 3.0, 90, "Gantungan kunci mobil dengan desain unik."},
+    {25, "Pelumas Persneling", 8.0, 40, "Pelumas persneling untuk perawatan persneling kendaraan."},
+    {26, "Kaca Spion", 30.0, 20, "Kaca spion untuk pemeriksaan dan keselamatan saat berkendara."},
+    {27, "Sparepart AC Mobil", 50.0, 25, "Sparepart AC mobil untuk pemeliharaan sistem pendinginan."},
+    {28, "Oli Gardan", 25.0, 35, "Oli gardan untuk perawatan gardan kendaraan."},
+    {29, "Sensor Parkir", 15.0, 50, "Sensor parkir untuk membantu pengemudi saat parkir."},
+    {30, "Kipas Radiator", 28.0, 30, "Kipas radiator untuk menjaga suhu mesin tetap stabil."},
+    {31, "Kunci Pas", 4.0, 75, "Kunci pas dengan berbagai ukuran untuk kebutuhan bengkel."},
+    {32, "Karburator Motor", 60.0, 20, "Karburator motor untuk distribusi campuran udara dan bahan bakar."},
+    {33, "Pompa Bensin", 40.0, 30, "Pompa bensin untuk menyuplai bahan bakar ke mesin kendaraan."},
+    {34, "Oli Power Steering", 15.0, 40, "Oli power steering untuk menjaga kinerja sistem power steering."},
+    {35, "Baut Roda", 2.0, 120, "Baut roda untuk mengamankan roda pada kendaraan."},
+    {36, "Aki Mobil Gel", 120.0, 15, "Aki mobil tahan lama dengan teknologi gel."},
+    {37, "Gembok Stir", 8.0, 60, "Gembok stir untuk mencegah pencurian kendaraan."},
+    {38, "Kaca Film Mobil", 50.0, 25, "Kaca film mobil untuk menjaga privasi dan menangkal panas."},
+    {39, "Pompa Air Wiper", 10.0, 55, "Pompa air wiper untuk menyemprotkan air ke kaca mobil."},
+    {40, "Kunci Kontak", 12.0, 70, "Kunci kontak untuk menghidupkan dan mematikan mesin kendaraan."},
+    {41, "Saringan Udara Motor", 7.0, 80, "Saringan udara motor untuk menjaga kualitas udara masuk ke mesin."},
+    {42, "Lever Gas Motor", 15.0, 40, "Lever gas motor untuk mengendalikan aliran bahan bakar."},
+    {43, "Karet Wiper", 5.0, 90, "Karet wiper untuk pengganti yang aus pada wiper mobil."},
+    {44, "Cover Mobil", 40.0, 30, "Cover mobil untuk melindungi kendaraan dari debu dan cuaca."},
+    {45, "Pompa Oli Motor", 25.0, 45, "Pompa oli motor untuk distribusi oli ke berbagai bagian mesin."},
+    {46, "Gelang Rem", 8.0, 60, "Gelang rem untuk mendukung sistem pengereman kendaraan."},
+    {47, "Stang Seher Motor", 30.0, 25, "Stang seher motor untuk menggerakkan piston."},
+    {48, "Oli Gardan Motor", 18.0, 35, "Oli gardan motor untuk perawatan gardan kendaraan."},
+    {49, "Lampu Sen Motor", 10.0, 55, "Lampu sen motor untuk sinyal saat berkendara."},
+    {50, "Pembersih Karburator", 7.0, 80, "Pembersih karburator untuk menjaga kinerja karburator."},
+    {51, "Gembok Rem", 12.0, 40, "Gembok rem untuk mencegah pergerakan kendaraan saat parkir."},
+    {52, "Oli Suspensi Motor", 15.0, 30, "Oli suspensi motor untuk kenyamanan berkendara."},
+    {53, "Pisau Kipas Radiator", 5.0, 90, "Pisau kipas radiator untuk menjaga suhu mesin kendaraan."},
+    {54, "Rantai Kunci Motor", 4.0, 110, "Rantai kunci motor untuk memudahkan penyimpanan kunci."},
+    {55, "Oli Rem DOT 4", 20.0, 50, "Oli rem DOT 4 untuk sistem pengereman yang handal."},
+    {56, "Tutup Radiator", 8.0, 40, "Tutup radiator untuk melindungi radiator kendaraan."},
+    {57, "Penyegar Udara Mobil", 12.0, 60, "Penyegar udara mobil untuk keharuman di dalam kendaraan."},
+    {58, "Selang Bensin", 6.0, 75, "Selang bensin untuk menghubungkan tangki bahan bakar dengan mesin."},
+    {59, "Gearbox Motor", 40.0, 25, "Gearbox motor untuk penggerak sepeda motor."},
+    {60, "Kunci Pas Torque", 5.0, 100, "Kunci pas torque untuk mengencangkan baut dan mur."},
+    {61, "Oli Gearbox Mobil", 25.0, 35, "Oli gearbox mobil untuk perawatan gearbox kendaraan."},
+    {62, "Cover Spion Mobil", 15.0, 45, "Cover spion mobil untuk melindungi spion dari goresan."},
+    {63, "Tromol Rem", 30.0, 30, "Tromol rem untuk mendukung sistem pengereman kendaraan."},
+    {64, "Karpet Mobil", 20.0, 40, "Karpet mobil untuk melindungi lantai mobil dari kotoran."},
+    {65, "Oli Saringan Udara", 10.0, 55, "Oli saringan udara untuk menjaga kinerja saringan udara."},
+    {66, "Kunci Inggris Set", 18.0, 30, "Set kunci inggris dengan berbagai ukuran untuk kebutuhan bengkel."},
+    {67, "Oli Rem DOT 3", 15.0, 50, "Oli rem DOT 3 untuk sistem pengereman yang handal."},
+    {68, "Filter Oli Motor", 7.0, 80, "Filter oli motor untuk menyaring kotoran pada oli."},
+    {69, "Lever Kopling Motor", 12.0, 40, "Lever kopling motor untuk mengoperasikan kopling kendaraan."},
+    {70, "Sensor Suhu Mesin", 18.0, 35, "Sensor suhu mesin untuk memonitor suhu mesin kendaraan."},
+    {71, "Wiper Blade", 6.0, 65, "Wiper blade untuk pengganti yang aus pada wiper mobil."},
+    {72, "Lampu Plat Nomor", 5.0, 75, "Lampu plat nomor untuk penerangan di bagian belakang kendaraan."},
+    {73, "Klem Selang", 2.0, 110, "Klem selang untuk mengamankan sambungan selang pada kendaraan."},
+    {74, "Radiator Motor", 50.0, 20, "Radiator motor untuk menjaga suhu mesin kendaraan."},
+    {75, "Saringan Oli Mobil", 8.0, 40, "Saringan oli mobil untuk menjaga kualitas oli kendaraan."},
+    {76, "Kunci Roda Anti Maling", 15.0, 30, "Kunci roda anti maling untuk mencegah pencurian roda kendaraan."},
+    {77, "Oli Transmisi Otomatis", 30.0, 25, "Oli transmisi otomatis untuk kendaraan otomatis."},
+    {78, "Karet Wiper Motor", 4.0, 90, "Karet wiper motor untuk pengganti yang aus pada wiper motor."},
+    {79, "Lampu Hazard", 10.0, 50, "Lampu hazard untuk memberi tahu pengguna jalan saat darurat."},
+    {80, "Pegas Rem Motor", 5.0, 70, "Pegas rem motor untuk mendukung sistem pengereman kendaraan."},
+    {81, "Oli Suspensi Mobil", 15.0, 35, "Oli suspensi mobil untuk kenyamanan berkendara."},
+    {82, "Saklar Lampu Motor", 8.0, 60, "Saklar lampu motor untuk mengontrol penerangan kendaraan."},
+    {83, "Kunci Pas L", 6.0, 85, "Kunci pas L untuk akses ke ruang sempit pada kendaraan."},
+    {84, "Koil Motor", 25.0, 40, "Koil motor untuk menghasilkan arus listrik pada busi kendaraan."},
+    {85, "Oli Gardan Mobil", 20.0, 30, "Oli gardan mobil untuk perawatan gardan kendaraan."},
+    {86, "Tang Set", 18.0, 25, "Set tang untuk berbagai kebutuhan perbaikan kendaraan."},
+    {87, "Oli Rem DOT 5", 25.0, 35, "Oli rem DOT 5 untuk sistem pengereman yang handal."},
+    {88, "Saringan Oli Motor", 6.0, 55, "Saringan oli motor untuk menyaring kotoran pada oli."},
+    {89, "Sensor Tekanan Ban", 12.0, 40, "Sensor tekanan ban untuk memonitor tekanan udara pada ban."},
+    {90, "Lampu LED Mobil", 30.0, 20, "Lampu LED mobil untuk penerangan yang lebih terang."},
+    {91, "Oli Rem DOT 4 Racing", 40.0, 30, "Oli rem DOT 4 racing untuk performa pengereman yang maksimal."},
+    {92, "Kunci L Wrench", 4.0, 75, "Kunci L wrench untuk akses ke ruang sempit pada kendaraan."},
+    {93, "Oli Motor 2 Tak", 15.0, 50, "Oli motor 2 tak untuk kendaraan motor dengan mesin 2 tak."},
+    {94, "Busi Iridium", 10.0, 60, "Busi iridium untuk pembakaran yang lebih efisien."},
+    {95, "Kunci Filter Oli", 8.0, 40, "Kunci filter oli untuk membuka dan menutup filter oli kendaraan."},
+    {96, "Oli Transmisi Manual", 20.0, 35, "Oli transmisi manual untuk kendaraan bertransmisi manual."},
+    {97, "Lampu Tanda Belok Motor", 5.0, 70, "Lampu tanda belok motor untuk memberi tahu arah belok kendaraan."},
+    {98, "Klem Selang Bensin", 2.0, 90, "Klem selang bensin untuk mengamankan sambungan selang bensin."},
+    {99, "Tutup Tangki Bensin", 3.0, 80, "Tutup tangki bensin untuk melindungi tangki bensin kendaraan."},
+    {100, "Sparepart Ekzos", 45.0, 25, "Sparepart ekzos untuk perawatan sistem pembuangan kendaraan."}
+};
+ for (int i = 0; i < sizeof(initial_data) / sizeof(initial_data[0]); i++) {
+        dumping_barang(initial_data[i].id, initial_data[i].nama_barang, initial_data[i].harga, initial_data[i].stok, initial_data[i].deskripsi);
+    }
+}
 void tambah_barang(int id, char nama_barang[], float harga, int stok, char deskripsi[]) {
     Barang barang;
     barang.id = id;
@@ -443,15 +568,14 @@ void inisialisasi_program() {
 }
 
 
-
-
-
 int main() {
     // Menambahkan beberapa contoh barang
    inisialisasi_program();
   //contoh_penggunaan_model();
-    // ... (kode lainnya)
-  cek_data_barang();
+
+
+ insert_initial_data();
+ cek_data_barang();
        //query_barang();
     return 0;
 }
