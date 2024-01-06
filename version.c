@@ -576,8 +576,8 @@ int main() {
   //contoh_penggunaan_model();
 
 
-//insert_initial_data();
+ insert_initial_data();
  cek_data_barang();
-       //query_barang();
+
     return 0;
 }
