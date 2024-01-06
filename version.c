@@ -296,6 +296,65 @@ void masukkan_nama_kasir() {
         strcpy(nama_kasir, "kasir auto");
     }
 }
+
+
+
+
+void query_barang() {
+    printf("\nTambahkan barang:\n");
+
+    // Input data barang dari user
+    int id = rand() % 1000 + 1; // id di-generate secara acak
+    char nama_barang[50], deskripsi[100];
+    float harga;
+    int stok;
+
+    printf("Masukkan nama barang: ");
+    scanf(" %[^\n]", nama_barang);
+
+    printf("Masukkan harga barang: ");
+    scanf("%f", &harga);
+
+    printf("Masukkan stok barang: ");
+    scanf("%d", &stok);
+
+    printf("Masukkan deskripsi barang: ");
+    scanf(" %[^\n]", deskripsi);
+
+    // Panggil fungsi tambah_barang
+    tambah_barang(id, nama_barang, harga, stok, deskripsi);
+
+    // Prompt apakah ingin menambah barang lagi
+    int pilihan;
+
+    do {
+        printf("Tambah barang lagi? (1: Ya / 0: Tidak): ");
+        scanf("%d", &pilihan);
+
+        if (pilihan == 1) {
+            query_barang();  // Rekursif untuk menambah barang lagi
+        } else if (pilihan == 0) {
+            tampilkan_daftar_barang();
+        } else {
+            printf("Pilihan tidak valid. Silakan masukkan 1 atau 0.\n");
+        }
+
+    } while (pilihan != 0 && pilihan != 1);
+}
+
+
+
+void cek_data_barang(){
+
+
+    if (jumlah_barang != 0) {
+        tampilkan_daftar_barang();
+    } else {
+       query_barang();
+    }
+}
+
+
 // Fungsi inisialisasi program jika belum diinisialisasi
 void inisialisasi_program() {
     if (!program_diinisialisasi) {
@@ -307,6 +366,11 @@ void inisialisasi_program() {
    printf("Nama kasir: %s\n", nama_kasir);
         // Set flag bahwa program telah diinisialisasi
         program_diinisialisasi = 1;
+        
+        printf("Inisiasi Selesai...");
+        
+        
+      
     }
 }
 
@@ -319,6 +383,7 @@ int main() {
    inisialisasi_program();
   //contoh_penggunaan_model();
     // ... (kode lainnya)
-
+  cek_data_barang();
+       //query_barang();
     return 0;
 }
