@@ -44,6 +44,12 @@ int jumlah_keranjang = 0;
 int jumlah_checkout = 0;
 int jumlah_laporan = 0;
 
+
+// Flag untuk memeriksa apakah program sudah diinisialisasi
+int program_diinisialisasi = 0;
+
+
+
 // Fungsi untuk menambahkan barang ke array
 void tambah_barang(int id, char nama_barang[], float harga, int stok, char deskripsi[]) {
     Barang barang;
@@ -186,9 +192,13 @@ void tampilkan_laporan() {
     }
 }
 
-int main() {
-    // Menambahkan beberapa contoh barang
-   tambah_barang(1, "Barang A", 10.0, 50, "Deskripsi Barang A");
+
+
+
+// Fungsi inisialisasi program jika belum diinisialisasi
+void inisialisasi_program() {
+    if (!program_diinisialisasi) {
+       tambah_barang(1, "Barang A", 10.0, 50, "Deskripsi Barang A");
    tambah_barang(2, "Barang B", 20.0, 30, "Deskripsi Barang B");
  tambah_barang(1, "Barang A", 10.0, 50, "Deskripsi Barang A");
     // Menampilkan daftar barang
@@ -247,6 +257,22 @@ int main() {
 
     // Menampilkan laporan harian
    tampilkan_laporan();
+
+ 
+        // Set flag bahwa program telah diinisialisasi
+        program_diinisialisasi = 1;
+    }
+}
+
+
+
+
+
+int main() {
+    // Menambahkan beberapa contoh barang
+   inisialisasi_program();
+
+    // ... (kode lainnya)
 
     return 0;
 }
