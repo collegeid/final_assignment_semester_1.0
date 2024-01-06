@@ -546,24 +546,26 @@ void cari_barang_dan_tampilkan(char nama_cari[], int id_cari) {
         search_barang();
     }
 }
-
-
-
 // Fungsi inisialisasi program jika belum diinisialisasi
 void inisialisasi_program() {
     if (!program_diinisialisasi) {
- printf("memulai inisiasi program...\n");
- 
-  masukkan_nama_merchant();
-   printf("Nama Merchant: %s\n", nama_merchant);
-     masukkan_nama_kasir();
-   printf("Nama kasir: %s\n", nama_kasir);
+        printf("\033[1;33m====================================\n");
+        printf("    \033[1mSelamat datang di Program Kasir!\n");
+        printf("\033[1;33m====================================\033[0m\n");
+
+        printf("\033[1mMemulai inisiasi program...\033[0m\n");
+        
+        masukkan_nama_merchant();
+        printf("\033[1mNama Merchant:\033[0m %s\n", nama_merchant);
+        
+        masukkan_nama_kasir();
+        printf("\033[1mNama Kasir:\033[0m %s\n", nama_kasir);
+        
         // Set flag bahwa program telah diinisialisasi
         program_diinisialisasi = 1;
         
-        printf("Inisiasi Selesai...");
-        
-      
+        printf("\033[1mInisiasi Selesai...\033[0m\n");
+        printf("\033[1;33m====================================\n");
     }
 }
 
@@ -574,7 +576,7 @@ int main() {
   //contoh_penggunaan_model();
 
 
- insert_initial_data();
+//insert_initial_data();
  cek_data_barang();
        //query_barang();
     return 0;
