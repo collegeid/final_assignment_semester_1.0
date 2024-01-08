@@ -76,9 +76,9 @@ void dumping_barang(int id, char nama_barang[], float harga, int stok, char desk
 
 void insert_initial_data() {
     Barang initial_data[] = {
-    {1, "Ban Mobil", 200.0, 50, "Ban mobil berukuran 15 inch."},
+    {1, "Ban Mobil", 200.0, NULL, "Ban mobil berukuran 15 inch."},
     {2, "Oli Mesin", 50.0, 100, "Oli mesin berkualitas tinggi untuk semua jenis kendaraan."},
-    {3, "Busi Mobil", 8.0, 150, "Busi mobil tahan lama dengan kinerja optimal."},
+    {3, "Busi Mobil", 8.0, 0, "Busi mobil tahan lama dengan kinerja optimal."},
     {4, "Filter Udara", 15.0, 80, "Filter udara untuk menjaga kualitas udara masuk ke mesin."},
     {5, "Kampas Rem", 25.0, 120, "Kampas rem berkualitas untuk sistem pengereman yang aman."},
     {6, "Wiper Mobil", 12.0, 70, "Wiper mobil dengan desain yang efisien untuk membersihkan kaca."},
@@ -244,6 +244,7 @@ void tambah_keranjang(int id_keranjang, int id_barang, int quantity) {
         jumlah_keranjang++;
         printf("Item berhasil ditambahkan ke keranjang.\n");
     }
+    tampilkan_keranjang();
 }
 
 // Fungsi untuk mengedit item keranjang berdasarkan ID
@@ -295,7 +296,7 @@ void tambah_laporan(char tanggal_laporan[], int jumlah_item_laporan, float total
 
     laporan_harian[jumlah_laporan] = laporan;
     jumlah_laporan++;
-      printf("lporan muncul\n");
+      printf("laporan muncul\n");
 }
 
 // Fungsi untuk menampilkan daftar barang
@@ -305,14 +306,17 @@ void tampilkan_daftar_barang() {
         printf("%d. %s - Harga: %.2f - Stok: %d\n", daftar_barang[i].id, daftar_barang[i].nama_barang, daftar_barang[i].harga, daftar_barang[i].stok);
     }
 }
-
 // Fungsi untuk menampilkan keranjang belanja
 void tampilkan_keranjang() {
-    printf("Keranjang Belanja:\n");
+    printf("\033[1;33m===========================\n");
+    printf("   \033[1mKeranjang Belanja\n");
+    printf("\033[1;33m===========================\033[0m\n");
+
     for (int i = 0; i < jumlah_keranjang; i++) {
         printf("%d. %s - Harga: %.2f - Quantity: %d\n", keranjang_belanja[i].id_barang, keranjang_belanja[i].nama_barang, keranjang_belanja[i].harga, keranjang_belanja[i].quantity);
     }
 }
+
 
 // Fungsi untuk menampilkan laporan harian
 void tampilkan_laporan() {
@@ -423,8 +427,22 @@ void masukkan_nama_kasir() {
         strcpy(nama_kasir, "kasir auto");
     }
 }
+int rand_kode_keranjang() {
+    // Seed the random number generator with the current time
+    srand(time(NULL));
 
+    return rand() % 1000 + 19732; // Return the randomly generated ID
+}
 
+// Fungsi untuk mengecek apakah ID keranjang sudah ada
+int check_id_keranjang(int id_keranjang) {
+    for (int i = 0; i < jumlah_keranjang; i++) {
+        if (keranjang_belanja[i].id_keranjang == id_keranjang) {
+            return 1;  // ID found
+        }
+    }
+    return 0;  // ID not found
+}
 void query_barang() {
     printf("\nTambahkan barang:\n");
 
@@ -506,28 +524,41 @@ void cek_data_barang(){
        query_barang();
     }
 }
-
 void search_barang() {
     int pilihan;
-    printf("\n1. Cari berdasarkan Nama\n");
-    printf("2. Cari berdasarkan ID\n");
-    printf("Pilih jenis pencarian (1/2): ");
-    scanf("%d", &pilihan);
+    char buffer[50];
 
-    if (pilihan == 1) {
-        char nama_cari[50];
-        printf("Masukkan nama barang yang dicari: ");
-        scanf("%s", nama_cari);
-        cari_barang_dan_tampilkan(nama_cari, -1);
-    } else if (pilihan == 2) {
-        int id_cari;
-        printf("Masukkan ID barang yang dicari: ");
-        scanf("%d", &id_cari);
-        cari_barang_dan_tampilkan(NULL, id_cari);
-    } else {
-        printf("Pilihan tidak valid.\n");
-    }
+    do {
+        printf("\n1. Cari berdasarkan Nama\n");
+        printf("2. Cari berdasarkan ID\n");
+        printf("Pilih jenis pencarian (1/2): ");
+
+        // Membaca input sebagai string
+        scanf("%s", buffer);
+
+        // Validasi apakah input adalah angka
+        if (sscanf(buffer, "%d", &pilihan) != 1) {
+            printf("Input bukan angka. Silakan masukkan nilai integer(1 atau 2).\n");
+            pilihan = 0;  // Memberi nilai default agar loop terus berlanjut
+            while (getchar() != '\n');  // Membersihkan input buffer
+        } else {
+            if (pilihan == 1) {
+                char nama_cari[50];
+                printf("Masukkan nama barang yang dicari: ");
+                scanf("%s", nama_cari);
+                cari_barang_dan_tampilkan(nama_cari, -1);
+            } else if (pilihan == 2) {
+                int id_cari;
+                printf("Masukkan ID barang yang dicari: ");
+                scanf("%d", &id_cari);
+                cari_barang_dan_tampilkan(NULL, id_cari);
+            } else {
+                printf("Pilihan tidak valid. Silakan masukkan 1 atau 2.\n");
+            }
+        }
+    } while (pilihan != 1 && pilihan != 2);
 }
+
 
 void cari_barang_dan_tampilkan(char nama_cari[], int id_cari) {
     int ditemukan = 0;
@@ -538,7 +569,9 @@ void cari_barang_dan_tampilkan(char nama_cari[], int id_cari) {
             ditemukan = 1;
             printf("Barang ditemukan:\n");
             printf("%d. %s - Harga: %.2f - Stok: %d\n", daftar_barang[i].id, daftar_barang[i].nama_barang, daftar_barang[i].harga, daftar_barang[i].stok);
+            query_keranjang();
         } 
+        
     }
 
     if (!ditemukan) {
@@ -546,11 +579,123 @@ void cari_barang_dan_tampilkan(char nama_cari[], int id_cari) {
         search_barang();
     }
 }
+int cek_stok_by_id(int id_cari) {
+    int ditemukan = 0;
+    int jumlah_barang = sizeof(daftar_barang) / sizeof(daftar_barang[0]);
+
+    for (int i = 0; i < jumlah_barang; i++) {
+        if (daftar_barang[i].id == id_cari) {
+            ditemukan = 1;
+            return daftar_barang[i].stok; // Return the stock value
+        }
+    }
+
+    if (!ditemukan) {
+        printf("Stok Barang tidak ditemukan.\n");
+    }
+
+    // Return -1 to indicate that the item was not found
+    return -1;
+}
+
+int search_keranjang_by_id(int id_keranjang) {
+    for (int i = 0; i < jumlah_keranjang; i++) {
+        if (keranjang_belanja[i].id_keranjang == id_keranjang) {
+            // Keranjang found
+            return keranjang_belanja[i].id_keranjang;
+        }
+    }
+
+    // Keranjang not found
+    return 0;
+}
+// Fungsi untuk melakukan pembelian barang
+void query_keranjang() {
+    int id_barang, jumlah_pembelian, sisa_stok, id_keranjang;
+    int id_keranjang_baru = rand_kode_keranjang();
+    // Loop until a valid integer ID is entered
+    while (1) {
+        // Munculkan prompt untuk input ID barang
+        printf("Masukkan ID barang (999 untuk membatalkan proses): ");
+
+        // Check if the input is an integer
+        if (scanf("%d", &id_barang) != 1) {
+            // Clear the input buffer in case of non-integer input
+            while (getchar() != '\n');
+            
+            // Prompt for a valid integer input
+            printf("Input id barang tidak valid. Masukkan integer.\n");
+            continue; // Retry the loop
+        }
+
+     break;
+    }
+
+    // Now, loop until a valid quantity is entered
+    while (1) {
+        // Munculkan prompt untuk input jumlah pembelian
+        printf("Masukkan Jumlah Pembelian barang (999 untuk membatalkan proses): ");
+        
+        // Check if the input is an integer
+        if (scanf("%d", &jumlah_pembelian) != 1) {
+            // Clear the input buffer in case of non-integer input
+            while (getchar() != '\n');
+            
+            // Prompt for a valid integer input
+            printf("Input jumlah pembelian tidak valid. Masukkan integer.\n");
+            continue; // Retry the loop
+        }
+         sisa_stok =  cek_stok_by_id(id_barang);
+        if(sisa_stok != 0) {
+        // Check if the stock is sufficient
+        if (sisa_stok < jumlah_pembelian) {
+            printf("Sisa stok tidak mencukupi untuk jumlah pembelian yang di inginkan\n");
+            
+            continue; // Retry the loop
+        } else if (sisa_stok == 0) {
+            printf("Stok barang habis\n");
+            query_keranjang();
+        } else {
+       id_keranjang = id_keranjang_baru;
+       int hasil_pencarian_keranjang = search_keranjang_by_id(id_keranjang);
+
+            if(hasil_pencarian_keranjang != 0) {
+                
+             tambah_keranjang(id_keranjang, id_barang, jumlah_pembelian);
+             printf("Berhasil menambahkan item ke dalam keranjang\n");
+          
+            } else if(hasil_pencarian_keranjang == 0){
+              id_keranjang_baru;
+               if(search_keranjang_by_id(id_keranjang_baru) != 0) {
+              
+              printf("inisiasi id keranjang_baru\n");
+               continue;
+               } else{
+
+                   
+             tambah_keranjang(id_keranjang_baru, id_barang, jumlah_pembelian);
+              printf("Berhasil menambahkan item ke dalam keranjang baru\n");
+          
+               }
+            }
+            printf("Sisa stock cukup dan siap untuk input ke dalam keranjang\n");
+          
+        }
+} else {
+            printf("Gagal Fetching data stok (NULL)..., Silahkan coba unit lain/ Coba lagi \n");
+            query_keranjang();
+}
+  break; // Exit the loop if a valid quantity is entered
+    }
+    // Add your further logic for processing the purchase here
+    // ...
+}
+
 // Fungsi inisialisasi program jika belum diinisialisasi
 void inisialisasi_program() {
     if (!program_diinisialisasi) {
         printf("\033[1;33m====================================\n");
-        printf("    \033[1mSelamat datang di Program Kasir!\n");
+        printf("    \033[1mAdvanced Kasir Program by Kelompok 2\n");
         printf("\033[1;33m====================================\033[0m\n");
 
         printf("\033[1mMemulai inisiasi program...\033[0m\n");
@@ -568,16 +713,45 @@ void inisialisasi_program() {
         printf("\033[1;33m====================================\n");
     }
 }
-
-
 int main() {
     // Menambahkan beberapa contoh barang
-   inisialisasi_program();
-  //contoh_penggunaan_model();
+    inisialisasi_program();
+    // contoh_penggunaan_model();
+    // rand_kode_keranjang();
+    insert_initial_data();
 
+    int choice;
 
- insert_initial_data();
- cek_data_barang();
+    while (1) {
+        printf("\n\n\n");
+        printf("\033[1;33m=============================\n");
+        printf("               \033[1mMenu\n");
+        printf("\033[1;33m=============================\033[0m\n");
+        printf("1. New Order\n");
+        printf("2. Tampilkan Daftar Barang\n");
+        printf("3. Keluar\n");
+
+        printf("Pilih menu (1-3): ");
+        if (scanf("%d", &choice) != 1) {
+            while (getchar() != '\n');  // Clear input buffer
+            printf("Input tidak valid. Masukkan integer.\n");
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                cek_data_barang();
+                break;
+            case 2:
+                tampilkan_daftar_barang();
+                break;
+            case 3:
+                printf("Keluar dari program.\n");
+                return 0;
+            default:
+                printf("Pilihan tidak valid. Masukkan angka 1-3.\n");
+        }
+    }
 
     return 0;
 }
