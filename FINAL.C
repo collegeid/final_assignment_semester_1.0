@@ -54,6 +54,7 @@ int jumlah_laporan = 0;
 // Deklarasi fungsi
 bool is_angka(const char *string);
 
+
 // Flag untuk memeriksa apakah program sudah diinisialisasi
 int program_diinisialisasi = 0;
 // Fungsi untuk menambahkan barang ke array
@@ -77,106 +78,107 @@ void dumping_barang(int id, char nama_barang[], float harga, int stok, char desk
 
 void insert_initial_data() {
     Barang initial_data[] = {
-    {1, "Ban Mobil", 2000.0, NULL, "Ban mobil berukuran 15 inch."},
-    {2, "Oli Mesin", 5000.0, 100, "Oli mesin berkualitas tinggi untuk semua jenis kendaraan."},
-    {3, "Busi Mobil", 8000.0, 0, "Busi mobil tahan lama dengan kinerja optimal."},
-    {4, "Filter Udara", 1500.0, 80, "Filter udara untuk menjaga kualitas udara masuk ke mesin."},
-    {5, "Kampas Rem", 2500.0, 120, "Kampas rem berkualitas untuk sistem pengereman yang aman."},
-    {6, "Wiper Mobil", 12.0, 70, "Wiper mobil dengan desain yang efisien untuk membersihkan kaca."},
-    {7, "Aki Mobil", 100.0, 90, "Aki mobil dengan daya tahan tinggi."},
-    {8, "Lampu Kepala", 18.0, 60, "Lampu kepala berkualitas untuk penerangan maksimal."},
-    {9, "Sparepart Rem", 30.0, 40, "Sparepart rem untuk pemeliharaan rutin."},
-    {10, "Pelumas Rantai", 8.0, 75, "Pelumas rantai motor untuk perawatan optimal."},
-    {11, "Radiator Coolant", 12.0, 85, "Cairan pendingin radiator untuk menjaga suhu mesin."},
-    {12, "Kaca Mobil", 40.0, 25, "Kaca mobil dengan kekuatan dan ketahanan tinggi."},
-    {13, "Kunci Inggris", 5.0, 120, "Kunci inggris dengan berbagai ukuran untuk kebutuhan bengkel."},
-    {14, "Kopling Motor", 35.0, 50, "Kopling motor tahan lama untuk performa yang optimal."},
-    {15, "Starter Motor", 25.0, 40, "Starter motor untuk memastikan start mesin yang lancar."},
-    {16, "Ban Motor", 100.0, 60, "Ban motor dengan kualitas terbaik."},
-    {17, "Oli Transmisi", 40.0, 80, "Oli transmisi untuk kendaraan bertransmisi manual."},
-    {18, "Kunci Roda", 7.0, 110, "Kunci roda untuk membuka dan mengunci roda kendaraan."},
-    {19, "Aki Motor", 80.0, 70, "Aki motor dengan daya tahan tinggi."},
-    {20, "Lampu Belakang", 15.0, 45, "Lampu belakang untuk sinyal dan penerangan belakang."},
-    {21, "Saringan Bensin", 10.0, 55, "Saringan bensin untuk menyaring kotoran pada bahan bakar."},
-    {22, "Kabel Busi", 5.0, 65, "Kabel busi berkualitas tinggi untuk penghantaran listrik yang optimal."},
-    {23, "Oli Rem", 20.0, 30, "Oli rem untuk menjaga kinerja rem pada kendaraan."},
-    {24, "Gantungan Kunci Mobil", 3.0, 90, "Gantungan kunci mobil dengan desain unik."},
-    {25, "Pelumas Persneling", 8.0, 40, "Pelumas persneling untuk perawatan persneling kendaraan."},
-    {26, "Kaca Spion", 30.0, 20, "Kaca spion untuk pemeriksaan dan keselamatan saat berkendara."},
-    {27, "Sparepart AC Mobil", 50.0, 25, "Sparepart AC mobil untuk pemeliharaan sistem pendinginan."},
-    {28, "Oli Gardan", 25.0, 35, "Oli gardan untuk perawatan gardan kendaraan."},
-    {29, "Sensor Parkir", 15.0, 50, "Sensor parkir untuk membantu pengemudi saat parkir."},
-    {30, "Kipas Radiator", 28.0, 30, "Kipas radiator untuk menjaga suhu mesin tetap stabil."},
-    {31, "Kunci Pas", 4.0, 75, "Kunci pas dengan berbagai ukuran untuk kebutuhan bengkel."},
-    {32, "Karburator Motor", 60.0, 20, "Karburator motor untuk distribusi campuran udara dan bahan bakar."},
-    {33, "Pompa Bensin", 40.0, 30, "Pompa bensin untuk menyuplai bahan bakar ke mesin kendaraan."},
-    {34, "Oli Power Steering", 15.0, 40, "Oli power steering untuk menjaga kinerja sistem power steering."},
-    {35, "Baut Roda", 2.0, 120, "Baut roda untuk mengamankan roda pada kendaraan."},
-    {36, "Aki Mobil Gel", 120.0, 15, "Aki mobil tahan lama dengan teknologi gel."},
-    {37, "Gembok Stir", 8.0, 60, "Gembok stir untuk mencegah pencurian kendaraan."},
-    {38, "Kaca Film Mobil", 50.0, 25, "Kaca film mobil untuk menjaga privasi dan menangkal panas."},
-    {39, "Pompa Air Wiper", 10.0, 55, "Pompa air wiper untuk menyemprotkan air ke kaca mobil."},
-    {40, "Kunci Kontak", 12.0, 70, "Kunci kontak untuk menghidupkan dan mematikan mesin kendaraan."},
-    {41, "Saringan Udara Motor", 7.0, 80, "Saringan udara motor untuk menjaga kualitas udara masuk ke mesin."},
-    {42, "Lever Gas Motor", 15.0, 40, "Lever gas motor untuk mengendalikan aliran bahan bakar."},
-    {43, "Karet Wiper", 5.0, 90, "Karet wiper untuk pengganti yang aus pada wiper mobil."},
-    {44, "Cover Mobil", 40.0, 30, "Cover mobil untuk melindungi kendaraan dari debu dan cuaca."},
-    {45, "Pompa Oli Motor", 25.0, 45, "Pompa oli motor untuk distribusi oli ke berbagai bagian mesin."},
-    {46, "Gelang Rem", 8.0, 60, "Gelang rem untuk mendukung sistem pengereman kendaraan."},
-    {47, "Stang Seher Motor", 30.0, 25, "Stang seher motor untuk menggerakkan piston."},
-    {48, "Oli Gardan Motor", 18.0, 35, "Oli gardan motor untuk perawatan gardan kendaraan."},
-    {49, "Lampu Sen Motor", 10.0, 55, "Lampu sen motor untuk sinyal saat berkendara."},
-    {50, "Pembersih Karburator", 7.0, 80, "Pembersih karburator untuk menjaga kinerja karburator."},
-    {51, "Gembok Rem", 12.0, 40, "Gembok rem untuk mencegah pergerakan kendaraan saat parkir."},
-    {52, "Oli Suspensi Motor", 15.0, 30, "Oli suspensi motor untuk kenyamanan berkendara."},
-    {53, "Pisau Kipas Radiator", 5.0, 90, "Pisau kipas radiator untuk menjaga suhu mesin kendaraan."},
-    {54, "Rantai Kunci Motor", 4.0, 110, "Rantai kunci motor untuk memudahkan penyimpanan kunci."},
-    {55, "Oli Rem DOT 4", 20.0, 50, "Oli rem DOT 4 untuk sistem pengereman yang handal."},
-    {56, "Tutup Radiator", 8.0, 40, "Tutup radiator untuk melindungi radiator kendaraan."},
-    {57, "Penyegar Udara Mobil", 12.0, 60, "Penyegar udara mobil untuk keharuman di dalam kendaraan."},
-    {58, "Selang Bensin", 6.0, 75, "Selang bensin untuk menghubungkan tangki bahan bakar dengan mesin."},
-    {59, "Gearbox Motor", 40.0, 25, "Gearbox motor untuk penggerak sepeda motor."},
-    {60, "Kunci Pas Torque", 5.0, 100, "Kunci pas torque untuk mengencangkan baut dan mur."},
-    {61, "Oli Gearbox Mobil", 25.0, 35, "Oli gearbox mobil untuk perawatan gearbox kendaraan."},
-    {62, "Cover Spion Mobil", 15.0, 45, "Cover spion mobil untuk melindungi spion dari goresan."},
-    {63, "Tromol Rem", 30.0, 30, "Tromol rem untuk mendukung sistem pengereman kendaraan."},
-    {64, "Karpet Mobil", 20.0, 40, "Karpet mobil untuk melindungi lantai mobil dari kotoran."},
-    {65, "Oli Saringan Udara", 10.0, 55, "Oli saringan udara untuk menjaga kinerja saringan udara."},
-    {66, "Kunci Inggris Set", 18.0, 30, "Set kunci inggris dengan berbagai ukuran untuk kebutuhan bengkel."},
-    {67, "Oli Rem DOT 3", 15.0, 50, "Oli rem DOT 3 untuk sistem pengereman yang handal."},
-    {68, "Filter Oli Motor", 7.0, 80, "Filter oli motor untuk menyaring kotoran pada oli."},
-    {69, "Lever Kopling Motor", 12.0, 40, "Lever kopling motor untuk mengoperasikan kopling kendaraan."},
-    {70, "Sensor Suhu Mesin", 18.0, 35, "Sensor suhu mesin untuk memonitor suhu mesin kendaraan."},
-    {71, "Wiper Blade", 6.0, 65, "Wiper blade untuk pengganti yang aus pada wiper mobil."},
-    {72, "Lampu Plat Nomor", 5.0, 75, "Lampu plat nomor untuk penerangan di bagian belakang kendaraan."},
-    {73, "Klem Selang", 2.0, 110, "Klem selang untuk mengamankan sambungan selang pada kendaraan."},
-    {74, "Radiator Motor", 50.0, 20, "Radiator motor untuk menjaga suhu mesin kendaraan."},
-    {75, "Saringan Oli Mobil", 8.0, 40, "Saringan oli mobil untuk menjaga kualitas oli kendaraan."},
-    {76, "Kunci Roda Anti Maling", 15.0, 30, "Kunci roda anti maling untuk mencegah pencurian roda kendaraan."},
-    {77, "Oli Transmisi Otomatis", 30.0, 25, "Oli transmisi otomatis untuk kendaraan otomatis."},
-    {78, "Karet Wiper Motor", 4.0, 90, "Karet wiper motor untuk pengganti yang aus pada wiper motor."},
-    {79, "Lampu Hazard", 10.0, 50, "Lampu hazard untuk memberi tahu pengguna jalan saat darurat."},
-    {80, "Pegas Rem Motor", 5.0, 70, "Pegas rem motor untuk mendukung sistem pengereman kendaraan."},
-    {81, "Oli Suspensi Mobil", 15.0, 35, "Oli suspensi mobil untuk kenyamanan berkendara."},
-    {82, "Saklar Lampu Motor", 8.0, 60, "Saklar lampu motor untuk mengontrol penerangan kendaraan."},
-    {83, "Kunci Pas L", 6.0, 85, "Kunci pas L untuk akses ke ruang sempit pada kendaraan."},
-    {84, "Koil Motor", 25.0, 40, "Koil motor untuk menghasilkan arus listrik pada busi kendaraan."},
-    {85, "Oli Gardan Mobil", 20.0, 30, "Oli gardan mobil untuk perawatan gardan kendaraan."},
-    {86, "Tang Set", 18.0, 25, "Set tang untuk berbagai kebutuhan perbaikan kendaraan."},
-    {87, "Oli Rem DOT 5", 25.0, 35, "Oli rem DOT 5 untuk sistem pengereman yang handal."},
-    {88, "Saringan Oli Motor", 6.0, 55, "Saringan oli motor untuk menyaring kotoran pada oli."},
-    {89, "Sensor Tekanan Ban", 12.0, 40, "Sensor tekanan ban untuk memonitor tekanan udara pada ban."},
-    {90, "Lampu LED Mobil", 30.0, 20, "Lampu LED mobil untuk penerangan yang lebih terang."},
-    {91, "Oli Rem DOT 4 Racing", 40.0, 30, "Oli rem DOT 4 racing untuk performa pengereman yang maksimal."},
-    {92, "Kunci L Wrench", 4.0, 75, "Kunci L wrench untuk akses ke ruang sempit pada kendaraan."},
-    {93, "Oli Motor 2 Tak", 15.0, 50, "Oli motor 2 tak untuk kendaraan motor dengan mesin 2 tak."},
-    {94, "Busi Iridium", 10.0, 60, "Busi iridium untuk pembakaran yang lebih efisien."},
-    {95, "Kunci Filter Oli", 8.0, 40, "Kunci filter oli untuk membuka dan menutup filter oli kendaraan."},
-    {96, "Oli Transmisi Manual", 20.0, 35, "Oli transmisi manual untuk kendaraan bertransmisi manual."},
-    {97, "Lampu Tanda Belok Motor", 5.0, 70, "Lampu tanda belok motor untuk memberi tahu arah belok kendaraan."},
-    {98, "Klem Selang Bensin", 2.0, 90, "Klem selang bensin untuk mengamankan sambungan selang bensin."},
-    {99, "Tutup Tangki Bensin", 3.0, 80, "Tutup tangki bensin untuk melindungi tangki bensin kendaraan."},
-    {100, "Sparepart Ekzos", 45.0, 25, "Sparepart ekzos untuk perawatan sistem pembuangan kendaraan."}
+      {1, "Ban Mobil", 2000000.0, NULL, "Ban mobil berukuran 15 inch."},
+    {2, "Oli Mesin", 5000000.0, 100, "Oli mesin berkualitas tinggi untuk semua jenis kendaraan."},
+    {3, "Busi Mobil", 8000000.0, 0, "Busi mobil tahan lama dengan kinerja optimal."},
+    {4, "Filter Udara", 1500000.0, 80, "Filter udara untuk menjaga kualitas udara masuk ke mesin."},
+    {5, "Kampas Rem", 2500000.0, 120, "Kampas rem berkualitas untuk sistem pengereman yang aman."},
+    {6, "Wiper Mobil", 12000.0, 70, "Wiper mobil dengan desain yang efisien untuk membersihkan kaca."},
+    {7, "Aki Mobil", 100000.0, 90, "Aki mobil dengan daya tahan tinggi."},
+    {8, "Lampu Kepala", 18000.0, 60, "Lampu kepala berkualitas untuk penerangan maksimal."},
+    {9, "Sparepart Rem", 30000.0, 40, "Sparepart rem untuk pemeliharaan rutin."},
+    {10, "Pelumas Rantai", 8000.0, 75, "Pelumas rantai motor untuk perawatan optimal."},
+    {11, "Radiator Coolant", 12000.0, 85, "Cairan pendingin radiator untuk menjaga suhu mesin."},
+    {12, "Kaca Mobil", 40000.0, 25, "Kaca mobil dengan kekuatan dan ketahanan tinggi."},
+    {13, "Kunci Inggris", 5000.0, 120, "Kunci inggris dengan berbagai ukuran untuk kebutuhan bengkel."},
+    {14, "Kopling Motor", 35000.0, 50, "Kopling motor tahan lama untuk performa yang optimal."},
+    {15, "Starter Motor", 25000.0, 40, "Starter motor untuk memastikan start mesin yang lancar."},
+    {16, "Ban Motor", 100000.0, 60, "Ban motor dengan kualitas terbaik."},
+    {17, "Oli Transmisi", 40000.0, 80, "Oli transmisi untuk kendaraan bertransmisi manual."},
+    {18, "Kunci Roda", 7000.0, 110, "Kunci roda untuk membuka dan mengunci roda kendaraan."},
+    {19, "Aki Motor", 80000.0, 70, "Aki motor dengan daya tahan tinggi."},
+    {20, "Lampu Belakang", 15000.0, 45, "Lampu belakang untuk sinyal dan penerangan belakang."},
+    {21, "Saringan Bensin", 10000.0, 55, "Saringan bensin untuk menyaring kotoran pada bahan bakar."},
+    {22, "Kabel Busi", 5000.0, 65, "Kabel busi berkualitas tinggi untuk penghantaran listrik yang optimal."},
+    {23, "Oli Rem", 20000.0, 30, "Oli rem untuk menjaga kinerja rem pada kendaraan."},
+    {24, "Gantungan Kunci Mobil", 3000.0, 90, "Gantungan kunci mobil dengan desain unik."},
+    {25, "Pelumas Persneling", 8000.0, 40, "Pelumas persneling untuk perawatan persneling kendaraan."},
+    {26, "Kaca Spion", 30000.0, 20, "Kaca spion untuk pemeriksaan dan keselamatan saat berkendara."},
+    {27, "Sparepart AC Mobil", 50000.0, 25, "Sparepart AC mobil untuk pemeliharaan sistem pendinginan."},
+    {28, "Oli Gardan", 25000.0, 35, "Oli gardan untuk perawatan gardan kendaraan."},
+    {29, "Sensor Parkir", 15000.0, 50, "Sensor parkir untuk membantu pengemudi saat parkir."},
+    {30, "Kipas Radiator", 28000.0, 30, "Kipas radiator untuk menjaga suhu mesin tetap stabil."},
+    {31, "Kunci Pas", 4000.0, 75, "Kunci pas dengan berbagai ukuran untuk kebutuhan bengkel."},
+    {32, "Karburator Motor", 60000.0, 20, "Karburator motor untuk distribusi campuran udara dan bahan bakar."},
+    {33, "Pompa Bensin", 40000.0, 30, "Pompa bensin untuk menyuplai bahan bakar ke mesin kendaraan."},
+    {34, "Oli Power Steering", 15000.0, 40, "Oli power steering untuk menjaga kinerja sistem power steering."},
+    {35, "Baut Roda", 2000.0, 120, "Baut roda untuk mengamankan roda pada kendaraan."},
+    {36, "Aki Mobil Gel", 120000.0, 15, "Aki mobil tahan lama dengan teknologi gel."},
+    {37, "Gembok Stir", 8000.0, 60, "Gembok stir untuk mencegah pencurian kendaraan."},
+    {38, "Kaca Film Mobil", 50000.0, 25, "Kaca film mobil untuk menjaga privasi dan menangkal panas."},
+    {39, "Pompa Air Wiper", 10000.0, 55, "Pompa air wiper untuk menyemprotkan air ke kaca mobil."},
+    {40, "Kunci Kontak", 12000.0, 70, "Kunci kontak untuk menghidupkan dan mematikan mesin kendaraan."},
+    {41, "Saringan Udara Motor", 7000.0, 80, "Saringan udara motor untuk menjaga kualitas udara masuk ke mesin."},
+    {42, "Lever Gas Motor", 15000.0, 40, "Lever gas motor untuk mengendalikan aliran bahan bakar."},
+    {43, "Karet Wiper", 5000.0, 90, "Karet wiper untuk pengganti yang aus pada wiper mobil."},
+    {44, "Cover Mobil", 40000.0, 30, "Cover mobil untuk melindungi kendaraan dari debu dan cuaca."},
+    {45, "Pompa Oli Motor", 25000.0, 45, "Pompa oli motor untuk distribusi oli ke berbagai bagian mesin."},
+    {46, "Gelang Rem", 8000.0, 60, "Gelang rem untuk mendukung sistem pengereman kendaraan."},
+    {47, "Stang Seher Motor", 30000.0, 25, "Stang seher motor untuk menggerakkan piston."},
+    {48, "Oli Gardan Motor", 18000.0, 35, "Oli gardan motor untuk perawatan gardan kendaraan."},
+    {49, "Lampu Sen Motor", 10000.0, 55, "Lampu sen motor untuk sinyal saat berkendara."},
+    {50, "Pembersih Karburator", 7000.0, 80, "Pembersih karburator untuk menjaga kinerja karburator."},
+    {51, "Gembok Rem", 12000.0, 40, "Gembok rem untuk mencegah pergerakan kendaraan saat parkir."},
+    {52, "Oli Suspensi Motor", 15000.0, 30, "Oli suspensi motor untuk kenyamanan berkendara."},
+    {53, "Pisau Kipas Radiator", 5000.0, 90, "Pisau kipas radiator untuk menjaga suhu mesin kendaraan."},
+    {54, "Rantai Kunci Motor", 4000.0, 110, "Rantai kunci motor untuk memudahkan penyimpanan kunci."},
+    {55, "Oli Rem DOT 4", 20000.0, 50, "Oli rem DOT 4 untuk sistem pengereman yang handal."},
+    {56, "Tutup Radiator", 8000.0, 40, "Tutup radiator untuk melindungi radiator kendaraan."},
+    {57, "Penyegar Udara Mobil", 12000.0, 60, "Penyegar udara mobil untuk keharuman di dalam kendaraan."},
+    {58, "Selang Bensin", 6000.0, 75, "Selang bensin untuk menghubungkan tangki bahan bakar dengan mesin."},
+    {59, "Gearbox Motor", 40000.0, 25, "Gearbox motor untuk penggerak sepeda motor."},
+    {60, "Kunci Pas Torque", 5000.0, 100, "Kunci pas torque untuk mengencangkan baut dan mur."},
+    {61, "Oli Gearbox Mobil", 25000.0, 35, "Oli gearbox mobil untuk perawatan gearbox kendaraan."},
+    {62, "Cover Spion Mobil", 15000.0, 45, "Cover spion mobil untuk melindungi spion dari goresan."},
+    {63, "Tromol Rem", 30000.0, 30, "Tromol rem untuk mendukung sistem pengereman kendaraan."},
+    {64, "Karpet Mobil", 20000.0, 40, "Karpet mobil untuk melindungi lantai mobil dari kotoran."},
+    {65, "Oli Saringan Udara", 10000.0, 55, "Oli saringan udara untuk menjaga kinerja saringan udara."},
+    {66, "Kunci Inggris Set", 18000.0, 30, "Set kunci inggris dengan berbagai ukuran untuk kebutuhan bengkel."},
+    {67, "Oli Rem DOT 3", 15000.0, 50, "Oli rem DOT 3 untuk sistem pengereman yang handal."},
+    {68, "Filter Oli Motor", 7000.0, 80, "Filter oli motor untuk menyaring kotoran pada oli."},
+    {69, "Lever Kopling Motor", 12000.0, 40, "Lever kopling motor untuk mengoperasikan kopling kendaraan."},
+    {70, "Sensor Suhu Mesin", 18000.0, 35, "Sensor suhu mesin untuk memonitor suhu mesin kendaraan."},
+    {71, "Wiper Blade", 6000.0, 65, "Wiper blade untuk pengganti yang aus pada wiper mobil."},
+    {72, "Lampu Plat Nomor", 5000.0, 75, "Lampu plat nomor untuk penerangan di bagian belakang kendaraan."},
+    {73, "Klem Selang", 2000.0, 110, "Klem selang untuk mengamankan sambungan selang pada kendaraan."},
+    {74, "Radiator Motor", 50000.0, 20, "Radiator motor untuk menjaga suhu mesin kendaraan."},
+    {75, "Saringan Oli Mobil", 8000.0, 40, "Saringan oli mobil untuk menjaga kualitas oli kendaraan."},
+    {76, "Kunci Roda Anti Maling", 15000.0, 30, "Kunci roda anti maling untuk mencegah pencurian roda kendaraan."},
+    {77, "Oli Transmisi Otomatis", 30000.0, 25, "Oli transmisi otomatis untuk kendaraan otomatis."},
+    {78, "Karet Wiper Motor", 4000.0, 90, "Karet wiper motor untuk pengganti yang aus pada wiper motor."},
+    {79, "Lampu Hazard", 10000.0, 50, "Lampu hazard untuk memberi tahu pengguna jalan saat darurat."},
+    {80, "Pegas Rem Motor", 5000.0, 70, "Pegas rem motor untuk mendukung sistem pengereman kendaraan."},
+    {81, "Oli Suspensi Mobil", 15000.0, 35, "Oli suspensi mobil untuk kenyamanan berkendara."},
+    {82, "Saklar Lampu Motor", 8000.0, 60, "Saklar lampu motor untuk mengontrol penerangan kendaraan."},
+    {83, "Kunci Pas L", 6000.0, 85, "Kunci pas L untuk akses ke ruang sempit pada kendaraan."},
+    {84, "Koil Motor", 25000.0, 40, "Koil motor untuk menghasilkan arus listrik pada busi kendaraan."},
+    {85, "Oli Gardan Mobil", 20000.0, 30, "Oli gardan mobil untuk perawatan gardan kendaraan."},
+    {86, "Tang Set", 18000.0, 25, "Set tang untuk berbagai kebutuhan perbaikan kendaraan."},
+    {87, "Oli Rem DOT 5", 25000.0, 35, "Oli rem DOT 5 untuk sistem pengereman yang handal."},
+    {88, "Saringan Oli Motor", 6000.0, 55, "Saringan oli motor untuk menyaring kotoran pada oli."},
+    {89, "Sensor Tekanan Ban", 12000.0, 40, "Sensor tekanan ban untuk memonitor tekanan udara pada ban."},
+    {90, "Lampu LED Mobil", 30000.0, 20, "Lampu LED mobil untuk penerangan yang lebih terang."},
+    {91, "Oli Rem DOT 4 Racing", 40000.0, 30, "Oli rem DOT 4 racing untuk performa pengereman yang maksimal."},
+    {92, "Kunci L Wrench", 4000.0, 75, "Kunci L wrench untuk akses ke ruang sempit pada kendaraan."},
+    {93, "Oli Motor 2 Tak", 15000.0, 50, "Oli motor 2 tak untuk kendaraan motor dengan mesin 2 tak."},
+    {94, "Busi Iridium", 10000.0, 60, "Busi iridium untuk pembakaran yang lebih efisien."},
+    {95, "Kunci Filter Oli", 8000.0, 40, "Kunci filter oli untuk membuka dan menutup filter oli kendaraan."},
+    {96, "Oli Transmisi Manual", 20000.0, 35, "Oli transmisi manual untuk kendaraan bertransmisi manual."},
+    {97, "Lampu Tanda Belok Motor", 5000.0, 70, "Lampu tanda belok motor untuk memberi tahu arah belok kendaraan."},
+    {98, "Klem Selang Bensin", 2000.0, 90, "Klem selang bensin untuk mengamankan sambungan selang bensin."},
+    {99, "Tutup Tangki Bensin", 3000.0, 80, "Tutup tangki bensin untuk melindungi tangki bensin kendaraan."},
+    {100, "Sparepart Ekzos", 45000.0, 25, "Sparepart ekzos untuk perawatan sistem pembuangan kendaraan."}
+
 };
  for (int i = 0; i < sizeof(initial_data) / sizeof(initial_data[0]); i++) {
         dumping_barang(initial_data[i].id, initial_data[i].nama_barang, initial_data[i].harga, initial_data[i].stok, initial_data[i].deskripsi);
@@ -320,45 +322,6 @@ void tampilkan_keranjang() {
 }
 
 
-void preview_keranjang_old(int id_keranjang) {
-    printf("\n\033[1;33m===========================\n");
-    printf("   \033[1mPreview Keranjang Belanja\n");
-    printf("\033[1;33m===========================\033[0m\n");
-
-    // Variables to store total information
-    float total_harga_keseluruhan = 0.0;
-    int total_barang = 0;
-    int total_quantity = 0;
-
-    printf("-------------------------------\n");
-    printf("ID Keranjang: %d\n", id_keranjang);
-    printf("-------------------------------\n");
-
-    for (int i = 0; i < jumlah_keranjang; i++) {
-        if (keranjang_belanja[i].id_keranjang == id_keranjang) {
-            printf("\nID Barang: %d. %s\n", keranjang_belanja[i].id_barang, keranjang_belanja[i].nama_barang);
-            printf("Harga per item: %.2f\n", keranjang_belanja[i].harga);
-            printf("Quantity: %d\n", keranjang_belanja[i].quantity);
-
-            // Calculate subtotal for the item
-            float subtotal_harga_item = keranjang_belanja[i].harga * keranjang_belanja[i].quantity;
-            printf("Subtotal harga item: %.2f\n", subtotal_harga_item);
-
-            // Accumulate totals
-            total_harga_keseluruhan += subtotal_harga_item;
-            total_barang++;
-            total_quantity += keranjang_belanja[i].quantity;
-
-            printf("-------------------------------\n");
-        }
-    }
-
-    printf("Total Barang: %d\n", total_barang);
-    printf("Total Quantity: %d\n", total_quantity);
-    printf("\nTotal Harga Keseluruhan: %.2f\n", total_harga_keseluruhan);
-    printf("==============================\n");
-}
-
 void preview_keranjang(int id_keranjang) {
     printf("\n\033[1;33m===========================\n");
     printf("   \033[1mPreview Keranjang Belanja\n");
@@ -444,75 +407,6 @@ void query_checkout(int id_keranjang) {
 
     // Continue with the checkout process
     // ...
-}
-
-void struk_old(int id_keranjang, int nominal_bayar) {
-    printf("\n\033[1;33m===========================\n");
-    printf("   \033[1mStruk Belanja\n");
-    printf("\033[1;33m===========================\033[0m\n");
-
-    // Variables to store total information
-    float total_harga_keseluruhan = 0.0;
-    int total_barang = 0;
-    int total_quantity = 0;
-
-    printf("-------------------------------\n");
-    printf("ID Keranjang: %d\n", id_keranjang);
-    printf("-------------------------------\n");
-
-    for (int i = 0; i < jumlah_keranjang; i++) {
-        if (keranjang_belanja[i].id_keranjang == id_keranjang) {
-            printf("\nID Barang: %d. %s\n", keranjang_belanja[i].id_barang, keranjang_belanja[i].nama_barang);
-            printf("Harga per item: %.2f\n", keranjang_belanja[i].harga);
-            printf("Quantity: %d\n", keranjang_belanja[i].quantity);
-
-            // Calculate subtotal for the item
-            float subtotal_harga_item = keranjang_belanja[i].harga * keranjang_belanja[i].quantity;
-            printf("\nSubtotal harga item: %.2f\n", subtotal_harga_item);
-
-            // Accumulate totals
-            total_harga_keseluruhan += subtotal_harga_item;
-            total_barang++;
-            total_quantity += keranjang_belanja[i].quantity;
-
-           
-           
-
-        }
-    }
-
-             int taxes;
-            
-             taxes = total_harga_keseluruhan * 0.11;
-               int total_harga_keseluruhan_after_tax;
-             total_harga_keseluruhan_after_tax = total_harga_keseluruhan + taxes;
-             int kembalian;
-             kembalian = nominal_bayar - total_harga_keseluruhan_after_tax;
-             int total_kembalian = kembalian;
-    printf("Total Barang: %d\n", total_barang);
-    printf("Total Quantity: %d\n", total_quantity);
-   // printf("\nTotal Harga Keseluruhan: %.2f\n", total_harga_keseluruhan);
-    printf("-------------------------------\n");
-             printf("HARGA NON PPN: %d\n", total_harga_keseluruhan);
-             printf("-------------------------------\n");
-             printf("HARGA DENGAN PPN: %d.\n", total_harga_keseluruhan_after_tax);
-             printf("-------------------------------\n");
-             
-             printf("NOMINAL BAYAR: %d\n", nominal_bayar);
-
-               if(total_kembalian > 0) {
-               printf("KEMBALI: %d\n", total_kembalian);
-           } else if(total_kembalian == 0){
-               printf("KEMBALI: 0");
-           }
-             if(total_kembalian >= 0) {
-             printf("STATUS: LUNAS");
-             } else {
-                printf("PEMBAYARAN GAGAL");
-                query_checkout(id_keranjang);
-             }
-             printf("\n-------------------------------\n");
-    printf("==============================\n");
 }
 
 void process_bayar(int id_keranjang, int nominal_bayar){
@@ -877,135 +771,15 @@ default:
     printf("==============================\n");
 
 }
-
-
-void process_bayar_oldest(int id_keranjang, int nominal_bayar) {
-    // Variables to store total information
-    float total_harga_keseluruhan = 0.0;
-    int total_barang = 0;
-    int total_quantity = 0;
-
-    // Calculate totals for the specified keranjang
-    for (int i = 0; i < jumlah_keranjang; i++) {
-        if (keranjang_belanja[i].id_keranjang == id_keranjang) {
-            float subtotal_harga_item = keranjang_belanja[i].harga * keranjang_belanja[i].quantity;
-            total_harga_keseluruhan += subtotal_harga_item;
-            total_barang++;
-            total_quantity += keranjang_belanja[i].quantity;
+// Function to update quantity in the data array
+void update_quantity_in_array(int id_barang, int new_quantity) {
+    for (int i = 0; i < jumlah_barang; i++) {
+        if (daftar_barang[i].id == id_barang) {
+            // Update the quantity for the specified item
+            daftar_barang[i].stok -= new_quantity;
+            break;  // Assuming each item has a unique ID
         }
     }
-
-    float taxes = total_harga_keseluruhan * 0.11;
-    float total_harga_keseluruhan_after_tax = total_harga_keseluruhan + taxes;
-    int kembalian = nominal_bayar - total_harga_keseluruhan_after_tax;
-
-    if (kembalian >= 0) {
-        // If sufficient payment, proceed with checkout. kondisi cukup/pas
-         struk(id_keranjang, nominal_bayar);
-    } else {
-        printf("PEMBAYARAN GAGAL: NOMINAL TIDAK CUKUP\n");
-        int choice;
-
-        do {
-            // Prompt for user choice
-            printf("\n Solusi:\n");
-            printf("1. Edit item pembelian\n");
-            printf("2. Lanjutkan pembayaran\n");
-            printf("Pilih menu (1/2): ");
-
-            // Validate user input
-            while (scanf("%d", &choice) != 1) {
-                printf("Input tidak valid. Masukkan angka: ");
-                while (getchar() != '\n'); // Clear the input buffer
-            }
-
-            switch (choice) {
-                case 1:
-                    // Edit item pembelian
-                    prompt_edit_item(id_keranjang);
-                    break;
-                case 2:
-                    // Lanjutkan pembayaran
-                    query_checkout(id_keranjang);
-                    break;
-                default:
-                    printf("Pilihan tidak valid. Masukkan angka 1 atau 2.\n");
-            }
-        } while (choice != 1 && choice != 2);
-    }
-}
-
-// Function to prompt user for editing item
-void prompt_edit_item(int id_keranjang) {
-    int action_choice;
-
-    // Prompt for action choice
-    printf("Pilih aksi:\n");
-    printf("1. Hapus item dari keranjang\n");
-    printf("2. Edit jumlah pembelian item di keranjang\n");
-
-    // Validate user input
-    while (scanf("%d", &action_choice) != 1 || (action_choice != 1 && action_choice != 2)) {
-        printf("Pilihan tidak valid. Masukkan angka 1 atau 2.\n");
-        while (getchar() != '\n'); // Clear the input buffer
-    }
-
-    switch (action_choice) {
-        case 1:
-            // Hapus item dari keranjang
-            prompt_hapus_item(id_keranjang);
-            break;
-        case 2:
-            // Edit jumlah pembelian item di keranjang
-            prompt_edit_jumlah(id_keranjang);
-            break;
-    }
-}
-
-// Function to prompt user for deleting item
-void prompt_hapus_item(int id_keranjang) {
-    int id_barang_to_remove;
-
-    // Prompt for item ID to remove
-    printf("Masukkan ID Barang yang ingin dihapus: ");
-
-    // Validate user input
-    while (scanf("%d", &id_barang_to_remove) != 1) {
-        printf("Input tidak valid. Masukkan angka: ");
-        while (getchar() != '\n'); // Clear the input buffer
-    }
-
-    // Call the function to remove the item
-    hapus_item_keranjang(id_keranjang, id_barang_to_remove);
-    preview_keranjang(id_keranjang);
-}
-
-// Function to prompt user for editing quantity
-void prompt_edit_jumlah(int id_keranjang) {
-    int id_barang_to_edit;
-    int new_quantity_to_edit;
-
-    // Prompt for item ID to edit
-    printf("Masukkan ID Barang yang ingin diedit quantity nya: ");
-
-    // Validate user input
-    while (scanf("%d", &id_barang_to_edit) != 1) {
-        printf("Input tidak valid. Masukkan angka: ");
-        while (getchar() != '\n'); // Clear the input buffer
-    }
-
-    // Prompt for new quantity
-    printf("Masukkan Quantity baru untuk ID Barang Tersebut: ");
-
-     // Validate user input for new quantity
-    while (scanf("%d", &new_quantity_to_edit) != 1) {
-        printf("Input tidak valid. Masukkan angka: ");
-        while (getchar() != '\n'); // Clear the input buffer
-    }
-
-    // Call the function to edit the quantity
-    edit_jumlah_pembelian(id_keranjang, id_barang_to_edit, new_quantity_to_edit);
-    preview_keranjang(id_keranjang);
 }
 
 int cetak_tanggal() {
@@ -1019,14 +793,15 @@ int cetak_tanggal() {
     strftime(buffer, sizeof(buffer), "%d-%m-%Y", info);
 
     // Mencetak tanggal ke layar
-    //printf("Tanggal: %s\n", buffer);
+    printf("Date: %s\n", buffer);
 
-    // Convert the date string to an integer (you may need a different conversion logic based on your needs)
+    // Convert the entire date string to an integer
     int date_as_integer;
-    sscanf(buffer, "%d", &date_as_integer);
-
-    return date_as_integer;
+    sscanf(buffer, "%", &date_as_integer);
+     int copyright = "By Febriansah Dirgantara";
+    return copyright;
 }
+
 
 void struk(int id_keranjang, int nominal_bayar) {
   
@@ -1034,6 +809,7 @@ void struk(int id_keranjang, int nominal_bayar) {
 
     printf("\n\033[1;33m===========================\n");
     printf("           \033[1mStruk Belanja\n");
+    printf("          \033[1m%d\n", cetak_tanggal());
     printf("\033[1;33m===========================\033[0m\n");
 
     // Variables to store total information
@@ -1074,16 +850,25 @@ void struk(int id_keranjang, int nominal_bayar) {
     printf("-------------------------------\n");
     printf("HARGA DENGAN PPN: %.2f\n", total_harga_keseluruhan_after_tax);
     printf("-------------------------------\n");
+    printf("-------------------------------\n");
     printf("NOMINAL BAYAR: %d\n", nominal_bayar);
-
+    printf("-------------------------------\n");
+     printf("-------------------------------\n");
     if (total_kembalian > 0) {
         printf("KEMBALI: %d\n", total_kembalian);
     } else if(total_kembalian == 0){
         printf("KEMBALI: 0");
     }
-
+    printf("-------------------------------\n");
+    printf("-------------------------------\n");
     if (total_kembalian >= 0) {
         printf("STATUS: LUNAS\n");
+          for (int i = 0; i < jumlah_keranjang; i++) {
+            if (keranjang_belanja[i].id_keranjang == id_keranjang) {
+                update_quantity_in_array(keranjang_belanja[i].id_barang, keranjang_belanja[i].quantity);
+            }
+        }
+
           hapus_keranjang(id_keranjang);
     } else {
         printf("PEMBAYARAN GAGAL\n");
@@ -1300,6 +1085,10 @@ void cek_data_barang(){
         tampilkan_daftar_barang();
         search_barang();
     } else {
+    printf("\n\033[1;33m===========================\n");
+    printf("   \033[1mStok Otomotif Kosong\n");
+    printf("\033[1;33m===========================\033[0m\n");
+
        query_barang();
     }
 }
@@ -1328,12 +1117,12 @@ void search_barang() {
                 char nama_cari[50];
                 printf("Masukkan nama barang yang dicari: ");
                 scanf("%s", nama_cari);
-                cari_barang_dan_tampilkan(nama_cari, -1);
+                cari_barang_by_nama(nama_cari);
             } else if (pilihan == 2) {
                 int id_cari;
                 printf("Masukkan ID barang yang dicari: ");
                 scanf("%d", &id_cari);
-                cari_barang_dan_tampilkan(NULL, id_cari);
+                cari_barang_by_id(id_cari);
             } else {
                 printf("Pilihan tidak valid. Silakan masukkan 1 atau 2.\n");
             }
@@ -1344,55 +1133,45 @@ void search_barang() {
 
 }
 
-
-void cari_barang_dan_tampilkan_old(char nama_cari[], int id_cari) {
+void cari_barang_by_id(int id_cari) {
     int ditemukan = 0;
-    
+
     for (int i = 0; i < jumlah_barang; i++) {
-        if ((nama_cari != NULL && strcasestr(daftar_barang[i].nama_barang, nama_cari) != NULL) ||
-            (id_cari != -1 && daftar_barang[i].id == id_cari)) {
+        if (daftar_barang[i].id == id_cari) {
             ditemukan = 1;
-            printf("Barang ditemukan:\n");
+            printf("Barang ditemukan (By ID):\n");
             printf("%d. %s - Harga: %.2f - Stok: %d\n", daftar_barang[i].id, daftar_barang[i].nama_barang, daftar_barang[i].harga, daftar_barang[i].stok);
-          
-              printf("\033[1;33m===========================\033[0m\n");
-            
-      query_keranjang();
-        } 
-        
+            printf("\033[1;33m===========================\033[0m\n");
+            break;  // Stop searching once found
+        }
     }
 
-    if (!ditemukan) {
+     if (ditemukan) {
+        query_keranjang();
+    } else {
         printf("Barang tidak ditemukan.\n");
-        search_barang();
     }
 }
 
-void cari_barang_dan_tampilkan(char nama_cari[], int id_cari) {
+// Function to search for a barang by name and display the result
+void cari_barang_by_nama(char nama_cari[]) {
     int ditemukan = 0;
     int found_once = 0;
 
-    // Pastikan jumlah_barang dan daftar_barang didefinisikan dengan benar
-    // int jumlah_barang;
-    // Barang daftar_barang[jumlah_barang];
-
     for (int i = 0; i < jumlah_barang; i++) {
-        if ((nama_cari[0] != '\0' && strcasestr(daftar_barang[i].nama_barang, nama_cari) != NULL) ||
-            (id_cari != -1 && daftar_barang[i].id == id_cari)) {
+        if (strcasestr(daftar_barang[i].nama_barang, nama_cari) != NULL) {
             ditemukan = 1;
 
             if (!found_once) {
-                printf("Barang ditemukan:\n");
+                printf("Barang ditemukan (By Name):\n");
                 found_once = 1;
-            }
+            } 
 
             printf("%d. %s - Harga: %.2f - Stok: %d\n", daftar_barang[i].id, daftar_barang[i].nama_barang, daftar_barang[i].harga, daftar_barang[i].stok);
-
             printf("\033[1;33m===========================\033[0m\n");
         } 
     }
 
-    // Panggil query_keranjang di luar loop jika ditemukan barang
     if (ditemukan) {
         query_keranjang();
     } else {
@@ -1449,87 +1228,6 @@ int search_keranjang_by_id(int id_keranjang) {
     // Keranjang not found
     return 0;
 }
-// Fungsi untuk melakukan pembelian barang
-void query_keranjang_old() {
-    int id_barang, jumlah_pembelian, sisa_stok, id_keranjang;
-    int id_keranjang_baru = rand_kode_keranjang();
-    // Loop until a valid integer ID is entered
-    while (1) {
-        // Munculkan prompt untuk input ID barang
-        printf("Masukkan ID barang (999 untuk membatalkan proses): ");
-
-        // Check if the input is an integer
-        if (scanf("%d", &id_barang) != 1) {
-            // Clear the input buffer in case of non-integer input
-            while (getchar() != '\n');
-            
-            // Prompt for a valid integer input
-            printf("Input id barang tidak valid. Masukkan integer.\n");
-            continue; // Retry the loop
-        }
-
-     break;
-    }
-
-    // Now, loop until a valid quantity is entered
-    while (1) {
-        // Munculkan prompt untuk input jumlah pembelian
-        printf("Masukkan Jumlah Pembelian barang (999 untuk membatalkan proses): ");
-        
-        // Check if the input is an integer
-        if (scanf("%d", &jumlah_pembelian) != 1) {
-            // Clear the input buffer in case of non-integer input
-            while (getchar() != '\n');
-            
-            // Prompt for a valid integer input
-            printf("Input jumlah pembelian tidak valid. Masukkan integer.\n");
-            continue; // Retry the loop
-        }
-         sisa_stok =  cek_stok_by_id(id_barang);
-        if(sisa_stok != 0) {
-        // Check if the stock is sufficient
-        if (sisa_stok < jumlah_pembelian) {
-            printf("Sisa stok tidak mencukupi untuk jumlah pembelian yang di inginkan\n");
-            
-            continue; // Retry the loop
-        } else if (sisa_stok == 0) {
-            printf("Stok barang habis\n");
-            query_keranjang();
-        } else {
-       id_keranjang = id_keranjang_baru;
-       int hasil_pencarian_keranjang = search_keranjang_by_id(id_keranjang);
-
-            if(hasil_pencarian_keranjang != 0) {
-                
-             tambah_keranjang(id_keranjang, id_barang, jumlah_pembelian);
-             printf("Berhasil menambahkan item ke dalam keranjang\n");
-          
-            } else if(hasil_pencarian_keranjang == 0){
-              id_keranjang_baru;
-               if(search_keranjang_by_id(id_keranjang_baru) != 0) {
-              
-              printf("inisiasi id keranjang_baru\n");
-               continue;
-               } else{
-
-                   
-             tambah_keranjang(id_keranjang_baru, id_barang, jumlah_pembelian);
-              printf("Berhasil menambahkan item ke dalam keranjang baru\n");
-          
-               }
-            }
-            printf("Sisa stock cukup dan siap untuk input ke dalam keranjang\n");
-          
-        }
-} else {
-            printf("Gagal Fetching data stok (NULL/KOSONG/TIDAK MEMILIKI NILAI)..., Silahkan coba unit lain/ Coba lagi \n");
-            query_keranjang();
-}
-  break; // Exit the loop if a valid quantity is entered
-    }
-    // Add your further logic for processing the purchase here
-    // ...
-}
 
 
 // Fungsi untuk mengedit jumlah pembelian item di keranjang berdasarkan ID Keranjang dan ID Barang
@@ -1572,7 +1270,7 @@ void query_keranjang() {
         // Loop until a valid integer ID is entered
         while (1) {
             // Munculkan prompt untuk input ID barang
-            printf("Masukkan ID barang untuk keranjang (999 untuk membatalkan proses): ");
+            printf("Masukkan ID barang untuk keranjang: ");
 
             // Check if the input is an integer
             if (scanf("%d", &id_barang) != 1) {
@@ -1600,7 +1298,10 @@ void query_keranjang() {
                 // Prompt for a valid integer input
                 printf("Input jumlah pembelian tidak valid. Masukkan integer.\n");
                 continue; // Retry the loop
-            }
+            }    if (jumlah_pembelian == 999) {
+             printf("Proses pembelian dibatalkan.\n");
+         
+         } else {
          cek_barang = cek_barang_by_id(id_barang);
          if(cek_barang == 1) {
             sisa_stok = cek_stok_by_id(id_barang);
@@ -1769,6 +1470,7 @@ break;
             } else {
            printf("ID Barang Tidak terdaftar didalam data\n");
              }
+         }
             // Exit the loop if a valid quantity is entered
             break;
         }
@@ -1819,8 +1521,8 @@ void inisialisasi_program() {
     if (!program_diinisialisasi) {
         printf("\033[1;33m====================================\n");
         printf("\033[1mAdvanced Kasir Program by Kelompok 2\n");
-         printf("\033[1mStarting Date: %d\n", cetak_tanggal());
-        printf("\033[1mAnggota: - Febriansah Dirgantara (2350081084), - Fahmi Nasruddin (2350081077), - Faiz Ghani (2350081083)\n");
+         printf("\033[1m%d\n", cetak_tanggal());
+        printf("\033[1mAnggota: \n- Febriansah Dirgantara (2350081084) \n- Fahmi Nasruddin (2350081077) \n- Faiz Ghani (2350081083)\n");
 
 
         printf("\033[1;33m====================================\033[0m\n");
