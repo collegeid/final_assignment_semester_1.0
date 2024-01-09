@@ -540,6 +540,7 @@ void process_bayar(int id_keranjang, int nominal_bayar){
     if (total_kembalian >= 0) {
         
         struk(id_keranjang, nominal_bayar);
+        hapus_keranjang(id_keranjang);
     } else {
     printf("PEMBAYARAN GAGAL: NOMINAL TIDAK CUKUP\n");
     int choice;
@@ -1063,6 +1064,7 @@ void struk(int id_keranjang, int nominal_bayar) {
 
     if (total_kembalian >= 0) {
         printf("STATUS: LUNAS\n");
+        
     } else {
         printf("PEMBAYARAN GAGAL\n");
         query_checkout(id_keranjang);
@@ -1320,7 +1322,7 @@ void search_barang() {
 }
 
 
-void cari_barang_dan_tampilkan(char nama_cari[], int id_cari) {
+void cari_barang_dan_tampilkan_old(char nama_cari[], int id_cari) {
     int ditemukan = 0;
     
     for (int i = 0; i < jumlah_barang; i++) {
@@ -1342,6 +1344,35 @@ void cari_barang_dan_tampilkan(char nama_cari[], int id_cari) {
         search_barang();
     }
 }
+
+void cari_barang_dan_tampilkan(char nama_cari[], int id_cari) {
+    int ditemukan = 0;
+    int found_once = 0;
+
+    for (int i = 0; i < jumlah_barang; i++) {
+        if ((nama_cari != NULL && strcasestr(daftar_barang[i].nama_barang, nama_cari) != NULL) ||
+            (id_cari != -1 && daftar_barang[i].id == id_cari)) {
+            ditemukan = 1;
+
+            if (!found_once) {
+                printf("Barang ditemukan:\n");
+                found_once = 1;
+            }
+
+            printf("%d. %s - Harga: %.2f - Stok: %d\n", daftar_barang[i].id, daftar_barang[i].nama_barang, daftar_barang[i].harga, daftar_barang[i].stok);
+
+            printf("\033[1;33m===========================\033[0m\n");
+            
+            query_keranjang();
+        } 
+    }
+
+    if (!ditemukan) {
+        printf("Barang tidak ditemukan.\n");
+    }
+}
+
+
 int cek_stok_by_id(int id_cari) {
     int ditemukan = 0;
     int jumlah_barang = sizeof(daftar_barang) / sizeof(daftar_barang[0]);
