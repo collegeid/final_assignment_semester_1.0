@@ -76,11 +76,11 @@ void dumping_barang(int id, char nama_barang[], float harga, int stok, char desk
 
 void insert_initial_data() {
     Barang initial_data[] = {
-    {1, "Ban Mobil", 200.0, NULL, "Ban mobil berukuran 15 inch."},
-    {2, "Oli Mesin", 50.0, 100, "Oli mesin berkualitas tinggi untuk semua jenis kendaraan."},
-    {3, "Busi Mobil", 8.0, 0, "Busi mobil tahan lama dengan kinerja optimal."},
-    {4, "Filter Udara", 15.0, 80, "Filter udara untuk menjaga kualitas udara masuk ke mesin."},
-    {5, "Kampas Rem", 25.0, 120, "Kampas rem berkualitas untuk sistem pengereman yang aman."},
+    {1, "Ban Mobil", 2000.0, NULL, "Ban mobil berukuran 15 inch."},
+    {2, "Oli Mesin", 5000.0, 100, "Oli mesin berkualitas tinggi untuk semua jenis kendaraan."},
+    {3, "Busi Mobil", 8000.0, 0, "Busi mobil tahan lama dengan kinerja optimal."},
+    {4, "Filter Udara", 1500.0, 80, "Filter udara untuk menjaga kualitas udara masuk ke mesin."},
+    {5, "Kampas Rem", 2500.0, 120, "Kampas rem berkualitas untuk sistem pengereman yang aman."},
     {6, "Wiper Mobil", 12.0, 70, "Wiper mobil dengan desain yang efisien untuk membersihkan kaca."},
     {7, "Aki Mobil", 100.0, 90, "Aki mobil dengan daya tahan tinggi."},
     {8, "Lampu Kepala", 18.0, 60, "Lampu kepala berkualitas untuk penerangan maksimal."},
@@ -319,7 +319,7 @@ void tampilkan_keranjang() {
 }
 
 
-void preview_keranjang(int id_keranjang) {
+void preview_keranjang_old(int id_keranjang) {
     printf("\n\033[1;33m===========================\n");
     printf("   \033[1mPreview Keranjang Belanja\n");
     printf("\033[1;33m===========================\033[0m\n");
@@ -356,6 +356,282 @@ void preview_keranjang(int id_keranjang) {
     printf("Total Quantity: %d\n", total_quantity);
     printf("\nTotal Harga Keseluruhan: %.2f\n", total_harga_keseluruhan);
     printf("==============================\n");
+}
+
+void preview_keranjang(int id_keranjang) {
+    printf("\n\033[1;33m===========================\n");
+    printf("   \033[1mPreview Keranjang Belanja\n");
+    printf("\033[1;33m===========================\033[0m\n");
+
+    // Variables to store total information
+    float total_harga_keseluruhan = 0.0;
+    int total_barang = 0;
+    int total_quantity = 0;
+
+    printf("-------------------------------\n");
+    printf("ID Keranjang: %d\n", id_keranjang);
+    printf("-------------------------------\n");
+
+    for (int i = 0; i < jumlah_keranjang; i++) {
+        if (keranjang_belanja[i].id_keranjang == id_keranjang) {
+            printf("\nID Barang: %d. %s\n", keranjang_belanja[i].id_barang, keranjang_belanja[i].nama_barang);
+            printf("Harga per item: %.2f\n", keranjang_belanja[i].harga);
+            printf("Quantity: %d\n", keranjang_belanja[i].quantity);
+
+            // Calculate subtotal for the item
+            float subtotal_harga_item = keranjang_belanja[i].harga * keranjang_belanja[i].quantity;
+            printf("Subtotal harga item: %.2f\n", subtotal_harga_item);
+
+            // Accumulate totals
+            total_harga_keseluruhan += subtotal_harga_item;
+            total_barang++;
+            total_quantity += keranjang_belanja[i].quantity;
+
+            printf("-------------------------------\n");
+        }
+    }
+
+    float taxes = total_harga_keseluruhan * 0.11;
+    float total_harga_keseluruhan_after_tax = total_harga_keseluruhan + taxes;
+
+    printf("Total Barang: %d\n", total_barang);
+    printf("Total Quantity: %d\n", total_quantity);
+    printf("\nTotal Harga Keseluruhan (Non-PPN): %.2f\n", total_harga_keseluruhan);
+    printf("PPN (11%%): %.2f\n", taxes);
+    printf("Total Harga Keseluruhan (Dengan PPN): %.2f\n", total_harga_keseluruhan_after_tax);
+    printf("==============================\n");
+}
+
+// Function to handle the checkout process
+void query_checkout(int id_keranjang) {
+    // Variables to store user input
+    char input[20];
+    int nominal_pembayaran;
+    printf("\n\033[1;33m===========================\n");
+    printf("   \033[1mPembayaran Keranjang : %d\n", id_keranjang);
+    printf("\033[1;33m===========================\033[0m\n");
+    while (1) {
+        // Prompt the user for the payment amount
+        printf("\nSilahkan masukkan nominal pembayaran (kelipatan 1000 rupiah, ketik 'Q' untuk membatalkan proses): ");
+        scanf("%s", input);
+
+        // Check if the user wants to cancel the process
+        if (input[0] == 'Q' || input[0] == 'q') {
+            printf("Checkout dibatalkan.\n");
+            hapus_keranjang(id_keranjang);
+            return;
+        }
+
+        // Convert the input to an integer
+        nominal_pembayaran = atoi(input);
+
+        // Check if the input is a multiple of 1000 rupiah
+        if (nominal_pembayaran % 1000 == 0 && nominal_pembayaran > 0) {
+            // Valid payment amount, perform the checkout process
+            printf("Nominal pembayaran valid: %d rupiah\n", nominal_pembayaran);
+            process_bayar(id_keranjang, nominal_pembayaran);
+            // Perform checkout logic here
+            // ...
+
+            // Exit the loop
+            break;
+        } else {
+            // Invalid payment amount, prompt again
+            printf("Nominal pembayaran tidak valid. Harus kelipatan 1000 rupiah.\n");
+        }
+    }
+
+    // Continue with the checkout process
+    // ...
+}
+
+void struk_old(int id_keranjang, int nominal_bayar) {
+    printf("\n\033[1;33m===========================\n");
+    printf("   \033[1mStruk Belanja\n");
+    printf("\033[1;33m===========================\033[0m\n");
+
+    // Variables to store total information
+    float total_harga_keseluruhan = 0.0;
+    int total_barang = 0;
+    int total_quantity = 0;
+
+    printf("-------------------------------\n");
+    printf("ID Keranjang: %d\n", id_keranjang);
+    printf("-------------------------------\n");
+
+    for (int i = 0; i < jumlah_keranjang; i++) {
+        if (keranjang_belanja[i].id_keranjang == id_keranjang) {
+            printf("\nID Barang: %d. %s\n", keranjang_belanja[i].id_barang, keranjang_belanja[i].nama_barang);
+            printf("Harga per item: %.2f\n", keranjang_belanja[i].harga);
+            printf("Quantity: %d\n", keranjang_belanja[i].quantity);
+
+            // Calculate subtotal for the item
+            float subtotal_harga_item = keranjang_belanja[i].harga * keranjang_belanja[i].quantity;
+            printf("Subtotal harga item: %.2f\n", subtotal_harga_item);
+
+            // Accumulate totals
+            total_harga_keseluruhan += subtotal_harga_item;
+            total_barang++;
+            total_quantity += keranjang_belanja[i].quantity;
+
+           
+           
+
+        }
+    }
+
+             int taxes;
+            
+             taxes = total_harga_keseluruhan * 0.11;
+               int total_harga_keseluruhan_after_tax;
+             total_harga_keseluruhan_after_tax = total_harga_keseluruhan + taxes;
+             int kembalian;
+             kembalian = nominal_bayar - total_harga_keseluruhan_after_tax;
+             int total_kembalian = kembalian;
+    printf("Total Barang: %d\n", total_barang);
+    printf("Total Quantity: %d\n", total_quantity);
+   // printf("\nTotal Harga Keseluruhan: %.2f\n", total_harga_keseluruhan);
+    printf("-------------------------------\n");
+             printf("HARGA NON PPN: %d\n", total_harga_keseluruhan);
+             printf("-------------------------------\n");
+             printf("HARGA DENGAN PPN: %d.\n", total_harga_keseluruhan_after_tax);
+             printf("-------------------------------\n");
+             
+             printf("NOMINAL BAYAR: %d\n", nominal_bayar);
+
+               if(total_kembalian > 0) {
+               printf("KEMBALI: %d\n", total_kembalian);
+           } else if(total_kembalian <= 0){
+               printf("KEMBALI: 0");
+           }
+             if(total_kembalian > 0) {
+             printf("STATUS: LUNAS");
+             } else {
+                printf("PEMBAYARAN GAGAL");
+                query_checkout(id_keranjang);
+             }
+             printf("\n-------------------------------\n");
+    printf("==============================\n");
+}
+
+void process_bayar(int id_keranjang, int nominal_bayar){
+
+    // Variables to store total information
+    float total_harga_keseluruhan = 0.0;
+    int total_barang = 0;
+    int total_quantity = 0;
+    for (int i = 0; i < jumlah_keranjang; i++) {
+        if (keranjang_belanja[i].id_keranjang == id_keranjang) {
+            // Calculate subtotal for the item
+            float subtotal_harga_item = keranjang_belanja[i].harga * keranjang_belanja[i].quantity;
+            // Accumulate totals
+            total_harga_keseluruhan += subtotal_harga_item;
+            total_barang++;
+            total_quantity += keranjang_belanja[i].quantity;
+        }
+    }
+
+    float taxes = total_harga_keseluruhan * 0.11;
+    float total_harga_keseluruhan_after_tax = total_harga_keseluruhan + taxes;
+    int kembalian = nominal_bayar - total_harga_keseluruhan_after_tax;
+    int total_kembalian = kembalian;
+
+
+    if (total_kembalian >= 0) {
+        //printf("STATUS: LUNAS\n");
+        struk(id_keranjang, nominal_bayar);
+    } else {
+    printf("PEMBAYARAN GAGAL: NOMINAL TIDAK CUKUP\n");
+    int choice;
+
+    do {
+        printf("\n Solusi:\n");
+        printf("1. Edit item pembelian\n");
+        printf("2. Lanjutkan pembayaran\n");
+        printf("Pilih menu (1/2): ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                // Call function to edit item pembelian (you may need to implement this function)
+                // For example:
+                // edit_item_pembelian(id_keranjang);
+                preview_keranjang(id_keranjang);
+                break;
+            case 2:
+                // Call function to lanjutkan pembayaran
+                query_checkout(id_keranjang);
+                break;
+            default:
+                printf("Pilihan tidak valid. Silakan masukkan 1 atau 2.\n");
+        }
+    } while (choice != 1 && choice != 2);
+}
+
+    printf("\n-------------------------------\n");
+    printf("==============================\n");
+
+}
+
+void struk(int id_keranjang, int nominal_bayar) {
+    printf("\n\033[1;33m===========================\n");
+    printf("   \033[1mStruk Belanja\n");
+    printf("\033[1;33m===========================\033[0m\n");
+
+    // Variables to store total information
+    float total_harga_keseluruhan = 0.0;
+    int total_barang = 0;
+    int total_quantity = 0;
+
+    printf("-------------------------------\n");
+    printf("ID Keranjang: %d\n", id_keranjang);
+    printf("-------------------------------\n");
+
+    for (int i = 0; i < jumlah_keranjang; i++) {
+        if (keranjang_belanja[i].id_keranjang == id_keranjang) {
+            printf("\nID Barang: %d. %s\n", keranjang_belanja[i].id_barang, keranjang_belanja[i].nama_barang);
+            printf("Harga per item: %.2f\n", keranjang_belanja[i].harga);
+            printf("Quantity: %d\n", keranjang_belanja[i].quantity);
+
+            // Calculate subtotal for the item
+            float subtotal_harga_item = keranjang_belanja[i].harga * keranjang_belanja[i].quantity;
+            printf("Subtotal harga item: %.2f\n", subtotal_harga_item);
+
+            // Accumulate totals
+            total_harga_keseluruhan += subtotal_harga_item;
+            total_barang++;
+            total_quantity += keranjang_belanja[i].quantity;
+        }
+    }
+
+    float taxes = total_harga_keseluruhan * 0.11;
+    float total_harga_keseluruhan_after_tax = total_harga_keseluruhan + taxes;
+    int kembalian = nominal_bayar - total_harga_keseluruhan_after_tax;
+    int total_kembalian = kembalian;
+
+    printf("Total Barang: %d\n", total_barang);
+    printf("Total Quantity: %d\n", total_quantity);
+    printf("-------------------------------\n");
+    printf("HARGA NON PPN: %.2f\n", total_harga_keseluruhan);
+    printf("-------------------------------\n");
+    printf("HARGA DENGAN PPN: %.2f\n", total_harga_keseluruhan_after_tax);
+    printf("-------------------------------\n");
+    printf("NOMINAL BAYAR: %d\n", nominal_bayar);
+
+    if (total_kembalian > 0) {
+        printf("KEMBALI: %d\n", total_kembalian);
+    } else {
+        printf("KEMBALI: 0");
+    }
+
+    if (total_kembalian > 0) {
+        printf("STATUS: LUNAS\n");
+    } else {
+        printf("PEMBAYARAN GAGAL\n");
+        query_checkout(id_keranjang);
+    }
+    //printf("\n-------------------------------\n");
+    //printf("==============================\n");
 }
 
 // Fungsi untuk menampilkan laporan harian
@@ -981,11 +1257,7 @@ void query_keranjang() {
 
             case 3:
                 // Checkout: Implement your checkout logic here
-                char tanggal_pembelian[20];  // You may want to set an appropriate size
-                // Get the checkout date from the user
-                printf("Masukkan tanggal pembelian (format: DD-MM-YYYY): ");
-                scanf("%s", tanggal_pembelian);
-                checkout(id_keranjang, tanggal_pembelian);
+              query_checkout(id_keranjang);
                 return;
             default:
                 printf("Pilihan tidak valid. Masukkan angka 1-3.\n");
