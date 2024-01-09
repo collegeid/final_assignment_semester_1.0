@@ -428,7 +428,7 @@ void query_checkout(int id_keranjang) {
         // Check if the input is a multiple of 1000 rupiah
         if (nominal_pembayaran % 1000 == 0 && nominal_pembayaran > 0) {
             // Valid payment amount, perform the checkout process
-            printf("Nominal pembayaran valid: %d rupiah\n", nominal_pembayaran);
+            //printf("Nominal pembayaran valid: %d rupiah\n", nominal_pembayaran);
             process_bayar(id_keranjang, nominal_pembayaran);
             // Perform checkout logic here
             // ...
@@ -467,7 +467,7 @@ void struk_old(int id_keranjang, int nominal_bayar) {
 
             // Calculate subtotal for the item
             float subtotal_harga_item = keranjang_belanja[i].harga * keranjang_belanja[i].quantity;
-            printf("Subtotal harga item: %.2f\n", subtotal_harga_item);
+            printf("\nSubtotal harga item: %.2f\n", subtotal_harga_item);
 
             // Accumulate totals
             total_harga_keseluruhan += subtotal_harga_item;
@@ -514,7 +514,7 @@ void struk_old(int id_keranjang, int nominal_bayar) {
     printf("==============================\n");
 }
 
-void process_bayar(int id_keranjang, int nominal_bayar){
+void process_bayar_old(int id_keranjang, int nominal_bayar){
 
     // Variables to store total information
     float total_harga_keseluruhan = 0.0;
@@ -552,7 +552,7 @@ void process_bayar(int id_keranjang, int nominal_bayar){
         scanf("%d", &choice);
 
         switch (choice) {
-          case 1:
+case 1:
     // Edit Keranjang: Prompt for action choice
     int action_choice;
     printf("Pilih aksi:\n");
@@ -707,7 +707,7 @@ break;
                  
 
 
-        break;
+    break;
 
     case 2:
         // Edit jumlah pembelian item di keranjang: Implement your logic here
@@ -861,11 +861,11 @@ break;
         printf("Pilihan tidak valid.\n");
 } 
 break;
-            case 2:
+case 2:
                 // Call function to lanjutkan pembayaran
                 query_checkout(id_keranjang);
-                break;
-            default:
+break;
+default:
                 printf("Pilihan tidak valid. Silakan masukkan 1 atau 2.\n");
         }
     } while (choice != 1 && choice != 2);
@@ -875,6 +875,140 @@ break;
     printf("==============================\n");
 
 }
+
+
+void process_bayar(int id_keranjang, int nominal_bayar) {
+    // Variables to store total information
+    float total_harga_keseluruhan = 0.0;
+    int total_barang = 0;
+    int total_quantity = 0;
+
+    // Calculate totals for the specified keranjang
+    for (int i = 0; i < jumlah_keranjang; i++) {
+        if (keranjang_belanja[i].id_keranjang == id_keranjang) {
+            float subtotal_harga_item = keranjang_belanja[i].harga * keranjang_belanja[i].quantity;
+            total_harga_keseluruhan += subtotal_harga_item;
+            total_barang++;
+            total_quantity += keranjang_belanja[i].quantity;
+        }
+    }
+
+    float taxes = total_harga_keseluruhan * 0.11;
+    float total_harga_keseluruhan_after_tax = total_harga_keseluruhan + taxes;
+    int kembalian = nominal_bayar - total_harga_keseluruhan_after_tax;
+
+    if (kembalian >= 0) {
+        // If sufficient payment, proceed with checkout
+        query_checkout(id_keranjang);
+    } else {
+        printf("PEMBAYARAN GAGAL: NOMINAL TIDAK CUKUP\n");
+        int choice;
+
+        do {
+            // Prompt for user choice
+            printf("\n Solusi:\n");
+            printf("1. Edit item pembelian\n");
+            printf("2. Lanjutkan pembayaran\n");
+            printf("Pilih menu (1/2): ");
+
+            // Validate user input
+            while (scanf("%d", &choice) != 1) {
+                printf("Input tidak valid. Masukkan angka: ");
+                while (getchar() != '\n'); // Clear the input buffer
+            }
+
+            switch (choice) {
+                case 1:
+                    // Edit item pembelian
+                    prompt_edit_item(id_keranjang);
+                    break;
+                case 2:
+                    // Lanjutkan pembayaran
+                    query_checkout(id_keranjang);
+                    break;
+                default:
+                    printf("Pilihan tidak valid. Masukkan angka 1 atau 2.\n");
+            }
+        } while (choice != 1 && choice != 2);
+    }
+}
+
+// Function to prompt user for editing item
+void prompt_edit_item(int id_keranjang) {
+    int action_choice;
+
+    // Prompt for action choice
+    printf("Pilih aksi:\n");
+    printf("1. Hapus item dari keranjang\n");
+    printf("2. Edit jumlah pembelian item di keranjang\n");
+
+    // Validate user input
+    while (scanf("%d", &action_choice) != 1 || (action_choice != 1 && action_choice != 2)) {
+        printf("Pilihan tidak valid. Masukkan angka 1 atau 2.\n");
+        while (getchar() != '\n'); // Clear the input buffer
+    }
+
+    switch (action_choice) {
+        case 1:
+            // Hapus item dari keranjang
+            prompt_hapus_item(id_keranjang);
+            break;
+        case 2:
+            // Edit jumlah pembelian item di keranjang
+            prompt_edit_jumlah(id_keranjang);
+            break;
+    }
+}
+
+// Function to prompt user for deleting item
+void prompt_hapus_item(int id_keranjang) {
+    int id_barang_to_remove;
+
+    // Prompt for item ID to remove
+    printf("Masukkan ID Barang yang ingin dihapus: ");
+
+    // Validate user input
+    while (scanf("%d", &id_barang_to_remove) != 1) {
+        printf("Input tidak valid. Masukkan angka: ");
+        while (getchar() != '\n'); // Clear the input buffer
+    }
+
+    // Call the function to remove the item
+    hapus_item_keranjang(id_keranjang, id_barang_to_remove);
+    preview_keranjang(id_keranjang);
+}
+
+// Function to prompt user for editing quantity
+void prompt_edit_jumlah(int id_keranjang) {
+    int id_barang_to_edit;
+    int new_quantity_to_edit;
+
+    // Prompt for item ID to edit
+    printf("Masukkan ID Barang yang ingin diedit quantity nya: ");
+
+    // Validate user input
+    while (scanf("%d", &id_barang_to_edit) != 1) {
+        printf("Input tidak valid. Masukkan angka: ");
+        while (getchar() != '\n'); // Clear the input buffer
+    }
+
+    // Prompt for new quantity
+    printf("Masukkan Quantity baru untuk ID Barang Tersebut: ");
+
+     // Validate user input for new quantity
+    while (scanf("%d", &new_quantity_to_edit) != 1) {
+        printf("Input tidak valid. Masukkan angka: ");
+        while (getchar() != '\n'); // Clear the input buffer
+    }
+
+    // Call the function to edit the quantity
+    edit_jumlah_pembelian(id_keranjang, id_barang_to_edit, new_quantity_to_edit);
+    preview_keranjang(id_keranjang);
+}
+
+
+
+
 
 void struk(int id_keranjang, int nominal_bayar) {
     printf("\n\033[1;33m===========================\n");
