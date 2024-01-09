@@ -408,7 +408,7 @@ void query_checkout(int id_keranjang) {
     char input[20];
     int nominal_pembayaran;
     printf("\n\033[1;33m===========================\n");
-    printf("   \033[1mPembayaran Keranjang : %d\n", id_keranjang);
+    printf("   \033[1mPembayaran Keranjang : ID #%d\n", id_keranjang);
     printf("\033[1;33m===========================\033[0m\n");
     while (1) {
         // Prompt the user for the payment amount
