@@ -552,12 +552,315 @@ void process_bayar(int id_keranjang, int nominal_bayar){
         scanf("%d", &choice);
 
         switch (choice) {
+          case 1:
+    // Edit Keranjang: Prompt for action choice
+    int action_choice;
+    printf("Pilih aksi:\n");
+    printf("1. Hapus item dari keranjang\n");
+    printf("2. Edit jumlah pembelian item di keranjang\n");
+
+    // Force input (ignore invalid input)
+    while (1) {
+        printf("Masukkan pilihan (1-2): ");
+        if (scanf("%d", &action_choice) == 1 && (action_choice == 1 || action_choice == 2)) {
+            break;
+        } else {
+            printf("Pilihan tidak valid. Masukkan angka 1 atau 2.\n");
+            while (getchar() != '\n');  // Clear input buffer
+        }
+    }
+
+  switch (action_choice) {
+    case 1:
+        // Hapus item dari keranjang: Implement your logic here
+        printf("Masukkan ID Barang yang ingin dihapus: ");
+        int id_barang_to_remove;
+
+        // Validate if the input is an integer
+        while (scanf("%d", &id_barang_to_remove) != 1) {
+            printf("Input tidak valid. Masukkan angka: ");
+            while (getchar() != '\n'); // Clear the input buffer
+        }
+
+        // Call the function to remove the item
+        hapus_item_keranjang(id_keranjang, id_barang_to_remove);
+         preview_keranjang(id_keranjang);
+
+    while (1) {
+        printf("\nApa yang ingin Anda lakukan selanjutnya?\n");
+        printf("1. Cancel\n");
+        printf("2. Edit Keranjang\n");
+        printf("3. Checkout\n");
+
+        printf("Pilih aksi (1-3): ");
+
+        if (scanf("%d", &action_choice) != 1) {
+            while (getchar() != '\n');  // Clear input buffer
+            printf("Input tidak valid. Masukkan integer.\n");
+            continue;
+        }
+
+        switch (action_choice) {
             case 1:
-                // Call function to edit item pembelian (you may need to implement this function)
-                // For example:
-                // edit_item_pembelian(id_keranjang);
-                preview_keranjang(id_keranjang);
-                break;
+               // Cancel: Prompt for confirmation
+    char confirmation;
+    printf("Anda yakin ingin membatalkan keranjang? (y/n): ");
+    
+    // Force input (ignore invalid input)
+    while (1) {
+        scanf(" %c", &confirmation);
+
+        if (confirmation == 'y' || confirmation == 'n') {
+            break;
+        } else {
+            printf("Pilihan tidak valid. Masukkan 'y' atau 'n': ");
+            while (getchar() != '\n');  // Clear input buffer
+        }
+    }   
+    if (confirmation == 'y') {
+        // Do something if 'y' (you can add your logic here)
+       hapus_keranjang(id_keranjang);
+        //printf("Keranjang berhasil dibatalkan.\n");
+        // Additional logic or just return if needed
+        return;
+    } else {
+          preview_keranjang(id_keranjang);
+
+        // Back to the loop if 'n'
+        break;
+    }
+case 2:
+    // Edit Keranjang: Prompt for action choice
+    int action_choice;
+    printf("Pilih aksi:\n");
+    printf("1. Hapus item dari keranjang\n");
+    printf("2. Edit jumlah pembelian item di keranjang\n");
+
+    // Force input (ignore invalid input)
+    while (1) {
+        printf("Masukkan pilihan (1-2): ");
+        if (scanf("%d", &action_choice) == 1 && (action_choice == 1 || action_choice == 2)) {
+            break;
+        } else {
+            printf("Pilihan tidak valid. Masukkan angka 1 atau 2.\n");
+            while (getchar() != '\n');  // Clear input buffer
+        }
+    }
+
+  switch (action_choice) {
+    case 1:
+        // Hapus item dari keranjang: Implement your logic here
+        printf("Masukkan ID Barang yang ingin dihapus: ");
+        int id_barang_to_remove;
+
+        // Validate if the input is an integer
+        while (scanf("%d", &id_barang_to_remove) != 1) {
+            printf("Input tidak valid. Masukkan angka: ");
+            while (getchar() != '\n'); // Clear the input buffer
+        }
+
+        // Call the function to remove the item
+        hapus_item_keranjang(id_keranjang, id_barang_to_remove);
+         preview_keranjang(id_keranjang);
+        break;
+
+    case 2:
+        // Edit jumlah pembelian item di keranjang: Implement your logic here
+        printf("Masukkan ID Barang yang ingin diedit quantity nya: ");
+        int id_barang_to_edit;
+
+        // Validate if the input is an integer
+        while (scanf("%d", &id_barang_to_edit) != 1) {
+            printf("Input tidak valid. Masukkan angka: ");
+            while (getchar() != '\n'); // Clear the input buffer
+        }
+
+        // Prompt for new quantity
+        printf("Masukkan Quantity baru untuk ID Barang Tersebut: ");
+        int new_quantity_to_edit;
+
+        // Validate if the input is an integer
+        while (scanf("%d", &new_quantity_to_edit) != 1) {
+            printf("Input tidak valid. Masukkan angka: ");
+            while (getchar() != '\n'); // Clear the input buffer
+        }
+
+        // Call the function to edit the quantity
+        edit_jumlah_pembelian(id_keranjang, id_barang_to_edit, new_quantity_to_edit);
+        preview_keranjang(id_keranjang);
+        break;
+
+    default:
+        // This should not happen with the current validation, but added for completeness
+        printf("Pilihan tidak valid.\n");
+} 
+break;
+
+            case 3:
+                // Checkout: Implement your checkout logic here
+              query_checkout(id_keranjang);
+                return;
+            default:
+                printf("Pilihan tidak valid. Masukkan angka 1-3.\n");
+        }
+    }
+                 
+
+
+        break;
+
+    case 2:
+        // Edit jumlah pembelian item di keranjang: Implement your logic here
+        printf("Masukkan ID Barang yang ingin diedit quantity nya: ");
+        int id_barang_to_edit;
+
+        // Validate if the input is an integer
+        while (scanf("%d", &id_barang_to_edit) != 1) {
+            printf("Input tidak valid. Masukkan angka: ");
+            while (getchar() != '\n'); // Clear the input buffer
+        }
+
+        // Prompt for new quantity
+        printf("Masukkan Quantity baru untuk ID Barang Tersebut: ");
+        int new_quantity_to_edit;
+
+        // Validate if the input is an integer
+        while (scanf("%d", &new_quantity_to_edit) != 1) {
+            printf("Input tidak valid. Masukkan angka: ");
+            while (getchar() != '\n'); // Clear the input buffer
+        }
+
+        // Call the function to edit the quantity
+        edit_jumlah_pembelian(id_keranjang, id_barang_to_edit, new_quantity_to_edit);
+        preview_keranjang(id_keranjang);
+
+    while (1) {
+        printf("\nApa yang ingin Anda lakukan selanjutnya?\n");
+        printf("1. Cancel\n");
+        printf("2. Edit Keranjang\n");
+        printf("3. Checkout\n");
+
+        printf("Pilih aksi (1-3): ");
+
+        if (scanf("%d", &action_choice) != 1) {
+            while (getchar() != '\n');  // Clear input buffer
+            printf("Input tidak valid. Masukkan integer.\n");
+            continue;
+        }
+
+        switch (action_choice) {
+            case 1:
+               // Cancel: Prompt for confirmation
+    char confirmation;
+    printf("Anda yakin ingin membatalkan keranjang? (y/n): ");
+    
+    // Force input (ignore invalid input)
+    while (1) {
+        scanf(" %c", &confirmation);
+
+        if (confirmation == 'y' || confirmation == 'n') {
+            break;
+        } else {
+            printf("Pilihan tidak valid. Masukkan 'y' atau 'n': ");
+            while (getchar() != '\n');  // Clear input buffer
+        }
+    }   
+    if (confirmation == 'y') {
+        // Do something if 'y' (you can add your logic here)
+       hapus_keranjang(id_keranjang);
+        //printf("Keranjang berhasil dibatalkan.\n");
+        // Additional logic or just return if needed
+        return;
+    } else {
+          preview_keranjang(id_keranjang);
+
+        // Back to the loop if 'n'
+        break;
+    }
+case 2:
+    // Edit Keranjang: Prompt for action choice
+    int action_choice;
+    printf("Pilih aksi:\n");
+    printf("1. Hapus item dari keranjang\n");
+    printf("2. Edit jumlah pembelian item di keranjang\n");
+
+    // Force input (ignore invalid input)
+    while (1) {
+        printf("Masukkan pilihan (1-2): ");
+        if (scanf("%d", &action_choice) == 1 && (action_choice == 1 || action_choice == 2)) {
+            break;
+        } else {
+            printf("Pilihan tidak valid. Masukkan angka 1 atau 2.\n");
+            while (getchar() != '\n');  // Clear input buffer
+        }
+    }
+
+  switch (action_choice) {
+    case 1:
+        // Hapus item dari keranjang: Implement your logic here
+        printf("Masukkan ID Barang yang ingin dihapus: ");
+        int id_barang_to_remove;
+
+        // Validate if the input is an integer
+        while (scanf("%d", &id_barang_to_remove) != 1) {
+            printf("Input tidak valid. Masukkan angka: ");
+            while (getchar() != '\n'); // Clear the input buffer
+        }
+
+        // Call the function to remove the item
+        hapus_item_keranjang(id_keranjang, id_barang_to_remove);
+         preview_keranjang(id_keranjang);
+        break;
+
+    case 2:
+        // Edit jumlah pembelian item di keranjang: Implement your logic here
+        printf("Masukkan ID Barang yang ingin diedit quantity nya: ");
+        int id_barang_to_edit;
+
+        // Validate if the input is an integer
+        while (scanf("%d", &id_barang_to_edit) != 1) {
+            printf("Input tidak valid. Masukkan angka: ");
+            while (getchar() != '\n'); // Clear the input buffer
+        }
+
+        // Prompt for new quantity
+        printf("Masukkan Quantity baru untuk ID Barang Tersebut: ");
+        int new_quantity_to_edit;
+
+        // Validate if the input is an integer
+        while (scanf("%d", &new_quantity_to_edit) != 1) {
+            printf("Input tidak valid. Masukkan angka: ");
+            while (getchar() != '\n'); // Clear the input buffer
+        }
+
+        // Call the function to edit the quantity
+        edit_jumlah_pembelian(id_keranjang, id_barang_to_edit, new_quantity_to_edit);
+        preview_keranjang(id_keranjang);
+        break;
+
+    default:
+        // This should not happen with the current validation, but added for completeness
+        printf("Pilihan tidak valid.\n");
+} 
+break;
+
+            case 3:
+                // Checkout: Implement your checkout logic here
+              query_checkout(id_keranjang);
+                return;
+            default:
+                printf("Pilihan tidak valid. Masukkan angka 1-3.\n");
+        }
+    }
+                 
+
+        break;
+
+    default:
+        // This should not happen with the current validation, but added for completeness
+        printf("Pilihan tidak valid.\n");
+} 
+break;
             case 2:
                 // Call function to lanjutkan pembayaran
                 query_checkout(id_keranjang);
@@ -1189,7 +1492,7 @@ void query_keranjang() {
         // Back to the loop if 'n'
         break;
     }
-            case 2:
+case 2:
     // Edit Keranjang: Prompt for action choice
     int action_choice;
     printf("Pilih aksi:\n");
@@ -1253,7 +1556,8 @@ void query_keranjang() {
     default:
         // This should not happen with the current validation, but added for completeness
         printf("Pilihan tidak valid.\n");
-} break;
+} 
+break;
 
             case 3:
                 // Checkout: Implement your checkout logic here
