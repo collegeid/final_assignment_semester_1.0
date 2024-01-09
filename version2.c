@@ -501,10 +501,10 @@ void struk_old(int id_keranjang, int nominal_bayar) {
 
                if(total_kembalian > 0) {
                printf("KEMBALI: %d\n", total_kembalian);
-           } else if(total_kembalian <= 0){
+           } else if(total_kembalian == 0){
                printf("KEMBALI: 0");
            }
-             if(total_kembalian > 0) {
+             if(total_kembalian >= 0) {
              printf("STATUS: LUNAS");
              } else {
                 printf("PEMBAYARAN GAGAL");
@@ -538,7 +538,7 @@ void process_bayar_old(int id_keranjang, int nominal_bayar){
 
 
     if (total_kembalian >= 0) {
-        //printf("STATUS: LUNAS\n");
+        
         struk(id_keranjang, nominal_bayar);
     } else {
     printf("PEMBAYARAN GAGAL: NOMINAL TIDAK CUKUP\n");
@@ -898,8 +898,8 @@ void process_bayar(int id_keranjang, int nominal_bayar) {
     int kembalian = nominal_bayar - total_harga_keseluruhan_after_tax;
 
     if (kembalian >= 0) {
-        // If sufficient payment, proceed with checkout
-        query_checkout(id_keranjang);
+        // If sufficient payment, proceed with checkout. kondisi cukup/pas
+         struk(id_keranjang, nominal_bayar);
     } else {
         printf("PEMBAYARAN GAGAL: NOMINAL TIDAK CUKUP\n");
         int choice;
@@ -1057,11 +1057,11 @@ void struk(int id_keranjang, int nominal_bayar) {
 
     if (total_kembalian > 0) {
         printf("KEMBALI: %d\n", total_kembalian);
-    } else {
+    } else if(total_kembalian == 0){
         printf("KEMBALI: 0");
     }
 
-    if (total_kembalian > 0) {
+    if (total_kembalian >= 0) {
         printf("STATUS: LUNAS\n");
     } else {
         printf("PEMBAYARAN GAGAL\n");
