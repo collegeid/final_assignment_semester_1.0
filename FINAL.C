@@ -69,7 +69,7 @@ void dumping_barang(int id, char nama_barang[], float harga, int stok, char desk
 
         daftar_barang[jumlah_barang] = barang;
         jumlah_barang++;
-        printf("Data berhasil ditambahkan ke indeks %d.\n", jumlah_barang - 1);
+       // printf("Data berhasil ditambahkan ke indeks %d.\n", jumlah_barang - 1);
     } else {
         printf("Error: Array daftar_barang is full.\n");
     }
@@ -183,6 +183,7 @@ void insert_initial_data() {
  for (int i = 0; i < sizeof(initial_data) / sizeof(initial_data[0]); i++) {
         dumping_barang(initial_data[i].id, initial_data[i].nama_barang, initial_data[i].harga, initial_data[i].stok, initial_data[i].deskripsi);
     }
+     printf("100 Data berhasil ditambahkan ke Dataset Indeks.\n");
 }
 void tambah_barang(int id, char nama_barang[], float harga, int stok, char deskripsi[]) {
     Barang barang;
@@ -306,7 +307,7 @@ void tambah_laporan(char tanggal_laporan[], int jumlah_item_laporan, float total
 void tampilkan_daftar_barang() {
     printf("Daftar Barang:\n");
     for (int i = 0; i < jumlah_barang; i++) {
-        printf("%d. %s - Harga: %.2f - Stok: %d\n", daftar_barang[i].id, daftar_barang[i].nama_barang, daftar_barang[i].harga, daftar_barang[i].stok);
+        printf("ID Item: %d. - Nama Barang: %s - Harga: %.2f - Stok: %d - Deskripsi: %s \n", daftar_barang[i].id, daftar_barang[i].nama_barang, daftar_barang[i].harga, daftar_barang[i].stok, daftar_barang[i].deskripsi);
     }
 }
 // Fungsi untuk menampilkan keranjang belanja
